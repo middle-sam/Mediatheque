@@ -38,6 +38,12 @@ class Maintenance
      */
     private $employeeId;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Documents::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $documentId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +93,18 @@ class Maintenance
     public function setEmployeeId(?employee $employeeId): self
     {
         $this->employeeId = $employeeId;
+
+        return $this;
+    }
+
+    public function getDocumentId(): ?Documents
+    {
+        return $this->documentId;
+    }
+
+    public function setDocumentId(?Documents $documentId): self
+    {
+        $this->documentId = $documentId;
 
         return $this;
     }

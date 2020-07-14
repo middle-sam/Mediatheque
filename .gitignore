@@ -51,5 +51,9 @@
 # Embedded web-server pid file
 /.web-server-pid
 
-#fichier de config phpstorm
+#Fichier de config phpstorm
 /.idea/
+
+#Fichier de migration doctrine
+/src/Migrations
+
