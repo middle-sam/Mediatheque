@@ -23,13 +23,13 @@ class Participates
     private $places;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="participatesId")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="participatesId")
      * @ORM\JoinColumn(nullable=false)
      */
     private $userId;
 
     /**
-     * @ORM\ManyToOne(targetEntity=meetUp::class)
+     * @ORM\ManyToOne(targetEntity=MeetUp::class)
      */
     private $meetUpId;
 

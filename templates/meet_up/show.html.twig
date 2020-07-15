@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MeetUp{% endblock %}
+
+{% block body %}
+    <h1>MeetUp</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ meet_up.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ meet_up.date ? meet_up.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('meet_up_index') }}">back to list</a>
+
+    <a href="{{ path('meet_up_edit', {'id': meet_up.id}) }}">edit</a>
+
+    {{ include('meet_up/_delete_form.html.twig') }}
+{% endblock %}

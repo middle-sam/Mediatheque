@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back_office/index.html.twig' %}
 
 {% block title %}Documents index{% endblock %}
 
@@ -25,8 +25,8 @@
                 <td>{{ document.format }}</td>
                 <td>{{ document.codeOeuvre }}</td>
                 <td>
-                    <a href="{#{ path('documents_show', {'id': document.id}) }#}">show</a>
-                    <a href="{#{ path('documents_edit', {'id': document.id}) }#}">edit</a>
+                    <a href="{{ path('documents_show', {'id': document.id}) }}">show</a>
+                    <a href="{{ path('documents_edit', {'id': document.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

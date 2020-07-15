@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit MeetUp{% endblock %}
+
+{% block body %}
+    <h1>Edit MeetUp</h1>
+
+    {{ include('meet_up/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('meet_up_index') }}">back to list</a>
+
+    {{ include('meet_up/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MeetUp index{% endblock %}
+
+{% block body %}
+    <h1>MeetUp index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for meet_up in meet_ups %}
+            <tr>
+                <td>{{ meet_up.id }}</td>
+                <td>{{ meet_up.date ? meet_up.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('meet_up_show', {'id': meet_up.id}) }}">show</a>
+                    <a href="{{ path('meet_up_edit', {'id': meet_up.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('meet_up_new') }}">Create new</a>
+{% endblock %}

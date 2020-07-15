@@ -33,7 +33,7 @@ class Borrowing
     private $effectiveReturnDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=member::class, inversedBy="borrowindId")
+     * @ORM\ManyToOne(targetEntity=Member::class, inversedBy="borrowingId")
      * @ORM\JoinColumn(nullable=false)
      */
     private $memberId;

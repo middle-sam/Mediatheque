@@ -2,8 +2,30 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}Home!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"              crossorigin="anonymous">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+
+
+        <!-- Font -->
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+        <!-- Stylesheets -->
+
+
+        {% block stylesheets %}
+
+            <link href="{{ asset('../public/css/style.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('../public/css/common-css/ionicons.css') }}" type="text/css" rel="stylesheet">
+
+            <link href="{{ asset('../public/css/font-awesome.min.css') }}" type="text/css" rel="stylesheet">
+
+
+        {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}

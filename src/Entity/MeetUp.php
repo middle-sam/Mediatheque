@@ -22,14 +22,9 @@ class MeetUp
      */
     private $date;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=employee::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $emplyoyeeId;
 
     /**
-     * @ORM\OneToOne(targetEntity=creator::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Creator::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $creatorId;
@@ -57,14 +52,14 @@ class MeetUp
         return $this;
     }
 
-    public function getEmplyoyeeId(): ?employee
+    public function getEmployeeId(): ?employee
     {
-        return $this->emplyoyeeId;
+        return $this->employeeId;
     }
 
-    public function setEmplyoyeeId(?employee $emplyoyeeId): self
+    public function setEmployeeId(?employee $employeeId): self
     {
-        $this->emplyoyeeId = $emplyoyeeId;
+        $this->employeeId = $employeeId;
 
         return $this;
     }
@@ -81,15 +76,4 @@ class MeetUp
         return $this;
     }
 
-    public function getEmployeeId(): ?Employee
-    {
-        return $this->employeeId;
-    }
-
-    public function setEmployeeId(?Employee $employeeId): self
-    {
-        $this->employeeId = $employeeId;
-
-        return $this;
-    }
 }

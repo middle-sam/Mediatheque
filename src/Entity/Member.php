@@ -27,11 +27,11 @@ class Member extends User
     /**
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="memberId")
      */
-    private $borrowindId;
+    private $borrowingdId;
 
     public function __construct()
     {
-        $this->borrowindId = new ArrayCollection();
+        $this->borrowingdId = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,12 +54,12 @@ class Member extends User
     /**
      * @return Collection|Borrowing[]
      */
-    public function getBorrowindId(): Collection
+    public function getBorrowingId(): Collection
     {
         return $this->borrowindId;
     }
 
-    public function addBorrowindId(Borrowing $borrowindId): self
+    public function addBorrowingId(Borrowing $borrowindId): self
     {
         if (!$this->borrowindId->contains($borrowindId)) {
             $this->borrowindId[] = $borrowindId;
@@ -69,7 +69,7 @@ class Member extends User
         return $this;
     }
 
-    public function removeBorrowindId(Borrowing $borrowindId): self
+    public function removeBorrowingId(Borrowing $borrowindId): self
     {
         if ($this->borrowindId->contains($borrowindId)) {
             $this->borrowindId->removeElement($borrowindId);

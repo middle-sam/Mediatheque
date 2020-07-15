@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BackOffice | Home!{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"              crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+
+    <!-- Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Stylesheets -->
+
+
+    {% block stylesheets %}
+
+        <link href="{{ asset('../public/css/style.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('../public/css/common-css/ionicons.css') }}" type="text/css" rel="stylesheet">
+
+        <link href="{{ asset('../public/css/font-awesome.min.css') }}" type="text/css" rel="stylesheet">
+
+
+    {% endblock %}
+</head>
+
+{% block Welcome %}Hello BackOfficeController!{% endblock %}
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand text-light" href="#">mySymfonyProject</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link text-info" href="{{ path('documents_index', {'limit':1}) }}">Documents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-info" href="{{ path('creator_index') }}">Creator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-info" href="{{ path('borrowing_index') }}">Emprunt</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-info" href="{{ path('meet_up_index') }}">Evènements</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello !{{ controller_name }}! ✅</h1>
+
+</div>
+{% endblock %}
