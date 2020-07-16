@@ -13,7 +13,7 @@ class MeetUpType extends AbstractType
     {
         $builder
             ->add('date')
-            ->add('emplyoyeeId')
+            ->add('employeeId')
             ->add('creatorId')
             ->add('employeeId')
         ;

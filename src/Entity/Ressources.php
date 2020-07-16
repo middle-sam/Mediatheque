@@ -28,9 +28,15 @@ class Ressources
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Documents::class, inversedBy="ressources")
+     * @ORM\ManyToOne(targetEntity=Documents::class, )
      */
     private $title;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Documents::class, inversedBy="ressources")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $documentId;
 
     public function getId(): ?int
     {
@@ -69,6 +75,18 @@ class Ressources
     public function setTitle(?Documents $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getDocumentId(): ?Documents
+    {
+        return $this->documentId;
+    }
+
+    public function setDocumentId(?Documents $documentId): self
+    {
+        $this->documentId = $documentId;
 
         return $this;
     }

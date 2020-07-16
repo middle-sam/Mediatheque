@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}IsInvolvedIn{% endblock %}
+
+{% block body %}
+    <h1>IsInvolvedIn</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ is_involved_in.id }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ is_involved_in.role }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('is_involved_in_index') }}">back to list</a>
+
+    <a href="{{ path('is_involved_in_edit', {'id': is_involved_in.id}) }}">edit</a>
+
+    {{ include('is_involved_in/_delete_form.html.twig') }}
+{% endblock %}

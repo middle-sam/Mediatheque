@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Ressources{% endblock %}
+
+{% block body %}
+    <h1>Create new Ressources</h1>
+
+    {{ include('ressources/_form.html.twig') }}
+
+    <a href="{{ path('ressources_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Dvd{% endblock %}
+
+{% block body %}
+    <h1>Create new Dvd</h1>
+
+    {{ include('dvd/_form.html.twig') }}
+
+    <a href="{{ path('dvd_index') }}">back to list</a>
+{% endblock %}

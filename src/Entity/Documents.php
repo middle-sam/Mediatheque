@@ -43,7 +43,7 @@ class Documents
     private $codeOeuvre;
 
     /**
-     * @ORM\OneToMany(targetEntity=Ressources::class, mappedBy="title")
+     * @ORM\OneToMany(targetEntity=Ressources::class, mappedBy="documentId")
      */
     private $ressources;
 
@@ -135,4 +135,9 @@ class Documents
 
         return $this;
     }
+
+    public function __toString(){
+        return $this->titre;
+    }
+
 }

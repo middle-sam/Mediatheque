@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Cd{% endblock %}
+
+{% block body %}
+    <h1>Edit Cd</h1>
+
+    {{ include('cd/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('cd_index') }}">back to list</a>
+
+    {{ include('cd/_delete_form.html.twig') }}
+{% endblock %}

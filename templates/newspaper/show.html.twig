@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newspaper{% endblock %}
+
+{% block body %}
+    <h1>Newspaper</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ newspaper.id }}</td>
+            </tr>
+            <tr>
+                <th>Cote</th>
+                <td>{{ newspaper.cote }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ newspaper.titre }}</td>
+            </tr>
+            <tr>
+                <th>Format</th>
+                <td>{{ newspaper.format }}</td>
+            </tr>
+            <tr>
+                <th>CodeOeuvre</th>
+                <td>{{ newspaper.codeOeuvre }}</td>
+            </tr>
+            <tr>
+                <th>Periodicity</th>
+                <td>{{ newspaper.periodicity }}</td>
+            </tr>
+            <tr>
+                <th>SubscriptionDate</th>
+                <td>{{ newspaper.subscriptionDate ? newspaper.subscriptionDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('newspaper_index') }}">back to list</a>
+
+    <a href="{{ path('newspaper_edit', {'id': newspaper.id}) }}">edit</a>
+
+    {{ include('newspaper/_delete_form.html.twig') }}
+{% endblock %}

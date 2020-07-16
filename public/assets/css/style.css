@@ -25,7 +25,7 @@ html{ font-size: 100%; height: 100%;  overflow-x: hidden; touch-action: manipula
 
 body{ font-size: 15px; font-family: 'Roboto', sans-serif; width: 100%; height: 100%; margin: 0; font-weight: 300;
     -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; word-wrap: break-word;
-    background: #EDF3F3; color: #000; }
+    background: #f3eeee; color: #000; }
 
 
 a, button{ display: inline-block; text-decoration: none; color: inherit; transition: all .3s; }

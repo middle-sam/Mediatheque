@@ -1,0 +1,44 @@
+{% extends 'back_office/index.html.twig' %}
+
+
+{% block title %}Dvd index{% endblock %}
+
+{% block body %}
+    <h1>Dvd index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cote</th>
+                <th>Titre</th>
+                <th>Format</th>
+                <th>CodeOeuvre</th>
+                <th>Duration</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dvd in dvds %}
+            <tr>
+                <td>{{ dvd.id }}</td>
+                <td>{{ dvd.cote }}</td>
+                <td>{{ dvd.titre }}</td>
+                <td>{{ dvd.format }}</td>
+                <td>{{ dvd.codeOeuvre }}</td>
+                <td>{{ dvd.duration ? dvd.duration|date('H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('dvd_show', {'id': dvd.id}) }}">show</a>
+                    <a href="{{ path('dvd_edit', {'id': dvd.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('dvd_new') }}">Create new</a>
+{% endblock %}

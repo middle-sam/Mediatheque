@@ -1,0 +1,45 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Newspaper index{% endblock %}
+
+{% block body %}
+    <h1>Newspaper index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cote</th>
+                <th>Titre</th>
+                <th>Format</th>
+                <th>CodeOeuvre</th>
+                <th>Periodicity</th>
+                <th>SubscriptionDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for newspaper in newspapers %}
+            <tr>
+                <td>{{ newspaper.id }}</td>
+                <td>{{ newspaper.cote }}</td>
+                <td>{{ newspaper.titre }}</td>
+                <td>{{ newspaper.format }}</td>
+                <td>{{ newspaper.codeOeuvre }}</td>
+                <td>{{ newspaper.periodicity }}</td>
+                <td>{{ newspaper.subscriptionDate ? newspaper.subscriptionDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('newspaper_show', {'id': newspaper.id}) }}">show</a>
+                    <a href="{{ path('newspaper_edit', {'id': newspaper.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('newspaper_new') }}">Create new</a>
+{% endblock %}

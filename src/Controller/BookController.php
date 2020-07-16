@@ -53,7 +53,7 @@ class BookController extends AbstractController
      */
     public function show(Book $book): Response
     {
-        //var_dump($book); die();
+
         return $this->render('book/show.html.twig', [
             'book' => $book,
         ]);
