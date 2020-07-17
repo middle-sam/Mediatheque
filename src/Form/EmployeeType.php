@@ -2,28 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Documents;
+use App\Entity\Employee;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DocumentsType extends AbstractType
+class EmployeeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cote')
-            ->add('titre')
-            ->add('format')
-            ->add('codeOeuvre')
+            ->add('pseudo')
+            ->add('password')
+            ->add('firstName')
+            ->add('lastName')
+            ->add('phoneNumber')
+            ->add('email')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Documents::class,
+            'data_class' => Employee::class,
         ]);
     }
 }

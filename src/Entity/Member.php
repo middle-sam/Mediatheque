@@ -17,21 +17,22 @@ class Member extends User
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $membershipDate;
 
+    private $t = 'sdrgdqsrgg';
     /**
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="memberId")
      */
-    private $borrowingdId;
+    private $borrowingId;
 
     public function __construct()
     {
-        $this->borrowingdId = new ArrayCollection();
+        $this->borrowingId = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,29 +57,32 @@ class Member extends User
      */
     public function getBorrowingId(): Collection
     {
-        return $this->borrowindId;
+        return $this->borrowingId;
     }
 
-    public function addBorrowingId(Borrowing $borrowindId): self
+    public function addBorrowingId(Borrowing $borrowingId): self
     {
-        if (!$this->borrowindId->contains($borrowindId)) {
-            $this->borrowindId[] = $borrowindId;
-            $borrowindId->setMemberId($this);
+        if (!$this->borrowingId->contains($borrowingId)) {
+            $this->borrowingId[] = $borrowingId;
+            $borrowingId->setMemberId($this);
         }
 
         return $this;
     }
 
-    public function removeBorrowingId(Borrowing $borrowindId): self
+    public function removeBorrowingId(Borrowing $borrowingId): self
     {
-        if ($this->borrowindId->contains($borrowindId)) {
-            $this->borrowindId->removeElement($borrowindId);
+        if ($this->borrowingId->contains($borrowingId)) {
+            $this->borrowingId->removeElement($borrowingId);
             // set the owning side to null (unless already changed)
-            if ($borrowindId->getMemberId() === $this) {
-                $borrowindId->setMemberId(null);
+            if ($borrowingId->getMemberId() === $this) {
+                $borrowingId->setMemberId(null);
             }
         }
 
         return $this;
+    }
+    public function __toString(){
+        return $this->t;
     }
 }

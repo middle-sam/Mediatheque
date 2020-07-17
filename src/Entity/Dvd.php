@@ -18,7 +18,7 @@ class Dvd extends Documents
     protected $id;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="string")
      */
     private $duration;
 
@@ -27,12 +27,12 @@ class Dvd extends Documents
         return $this->id;
     }
 
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeInterface $duration): self
+    public function setDuration(string $duration): self
     {
         $this->duration = $duration;
 

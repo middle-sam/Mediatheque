@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        $faker = Faker\Factory::create('fr\FR');
+        $faker = Faker\Factory::create('fr_FR');
 
 
         /**
@@ -71,6 +71,10 @@ class AppFixtures extends Fixture
          * Création des Cd
          */
         for ($i = 0; $i < 10; $i++){
+
+            $hours= mt_rand(0,3);
+            $ms= mt_rand(0,59);
+
             $randomInt = mt_rand(15,150);
             $cd = new Cd();
             $cd->setTitre($faker->realText($maxNbChars = 20, $indexSize = 2));
@@ -78,7 +82,7 @@ class AppFixtures extends Fixture
             $cd->setCodeOeuvre($faker->regexify('^[AEJR|(JBD)|(RP)|(RSF)|(BD)]-[A-Z]{3}-[A-Z]{1}'));
             $cd->setCote($faker->ean8);
             $cd->setPlages($randomInt);
-            $cd->setDuration($faker->time($format = 'H:i:s', $max = '02:30:00'));
+            $cd->setDuration("$hours:$ms:$ms");
             $manager->persist($cd);
         }
 
@@ -88,12 +92,15 @@ class AppFixtures extends Fixture
          */
         for ($i = 0; $i < 10; $i++){
 
+            $hours= mt_rand(0,3);
+            $ms= mt_rand(0,59);
+
             $dvd = new Dvd();
             $dvd->setTitre($faker->realText($maxNbChars = 20, $indexSize = 2));
             $dvd->setFormat($faker->randomElement($array = array("single","album")));
             $dvd->setCodeOeuvre($faker->regexify('^[AEJR|(JBD)|(RP)|(RSF)|(BD)]-[A-Z]{3}-[A-Z]{1}'));
             $dvd->setCote($faker->ean8);
-            $dvd->setDuration($faker->time($format = 'H:i:s', $max = '02:30:00'));
+            $dvd->setDuration("$hours:$ms:$ms");
             $manager->persist($dvd);
         }
 
@@ -131,20 +138,21 @@ class AppFixtures extends Fixture
         /**
          * Création des Emprunts
          */
-        for ($i = 0; $i < 10; $i++){
-
-            $br = new Borrowing();
-            $br->setStartDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
-            $br->setExpectedReturnDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
-            $br->setEffectiveReturnDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
-            $manager->persist($br);
-        }
+        //for ($i = 0; $i < 10; $i++){
+//
+        //    $br = new Borrowing();
+        //    $rand = mt_rand(1,11);
+        //    $br->setMemberId($rand);
+        //    $br->setStartDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
+        //    $br->setExpectedReturnDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
+        //    $br->setEffectiveReturnDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
+        //    $manager->persist($br);
+        //}
 
         /**
          * Création des Members
          */
         for ($i = 0; $i < 10; $i++){
-
             $mbr = new Member();
             $mbr->setMembershipDate($faker->dateTimeBetween($startDate = '-15 years', $endDate = 'now', $timezone = null));
             $manager->persist($mbr);
@@ -163,26 +171,26 @@ class AppFixtures extends Fixture
             $manager->persist($usr);
         }
 
-        /**
-         * Création des Participates
-         */
-        for ($i = 0; $i < 10; $i++){
-
-            $randomInt = mt_rand(15,150);
-            $pts = new Participates();
-            $pts->setPlaces($randomInt);
-            $manager->persist($pts);
-        }
+        ///**
+        // * Création des Participates
+        // */
+        //for ($i = 0; $i < 10; $i++){
+//
+        //    $randomInt = mt_rand(15,150);
+        //    $pts = new Participates();
+        //    $pts->setPlaces($randomInt);
+        //    $manager->persist($pts);
+        //}
 
         /**
          * Création des Meetups
          */
-        for ($i = 0; $i < 15; $i++){
-
-            $mtup = new MeetUp();
-            $mtup->setDate($faker->dateTimeBetween($startDate = 'now', $endDate = '+1 month', $timezone = null));
-            $manager->persist($mtup);
-        }
+        //for ($i = 0; $i < 15; $i++){
+//
+        //    $mtup = new MeetUp();
+        //    $mtup->setDate($faker->dateTimeBetween($startDate = 'now', $endDate = '+1 month', $timezone = null));
+        //    $manager->persist($mtup);
+        //}
 
         $manager->flush();
     }

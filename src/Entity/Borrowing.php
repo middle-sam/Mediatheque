@@ -85,12 +85,12 @@ class Borrowing
         return $this;
     }
 
-    public function getMemberId(): ?member
+    public function getMemberId(): ?Member
     {
         return $this->memberId;
     }
 
-    public function setMemberId(?member $memberId): self
+    public function setMemberId(?Member $memberId): self
     {
         $this->memberId = $memberId;
 

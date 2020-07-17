@@ -17,7 +17,7 @@ class Employee extends User
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
@@ -35,7 +35,7 @@ class Employee extends User
     private $maintenanceId;
 
     /**
-     * @ORM\OneToMany(targetEntity=meetUp::class, mappedBy="employeeId")
+     * @ORM\OneToMany(targetEntity=MeetUp::class, mappedBy="employeeId")
      */
     private $organizes;
 
