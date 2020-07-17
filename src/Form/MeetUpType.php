@@ -15,7 +15,6 @@ class MeetUpType extends AbstractType
             ->add('date')
             ->add('employeeId')
             ->add('creatorId')
-            ->add('employeeId')
         ;
     }
 
