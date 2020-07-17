@@ -6,6 +6,8 @@ use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeeRepository::class)
@@ -138,5 +140,12 @@ class Employee extends User
     public function __toString()
     {
         return $this->email;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('email', new Assert\Email([
+            'message' => 'The email "{{ value }}" is not a valid email.',
+        ]));
     }
 }

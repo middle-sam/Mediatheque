@@ -17,12 +17,15 @@ class CdType extends AbstractType
             ->add('titre')
             ->add('format',  ChoiceType::class, [
 
-                'choices'  => [ 'single',
-                    'MP3',
-                    'WAV',
-                    'BWF',
-                    'Ogg',
-
+                'choices'  => [
+                    'MP3'=>'MP3',
+                    'WAV'=>'WAV',
+                    'BWF'=>'BWF',
+                    'Ogg'=>'Ogg',
+                    'AIFF'=>'AIFF',
+                    'mp3PRO'=>'mp3PRO',
+                    'CAF'=>'CAF',
+                    'RAW'=>'RAW',
 
                 ]])
             ->add('codeOeuvre')

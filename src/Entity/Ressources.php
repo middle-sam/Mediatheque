@@ -28,7 +28,7 @@ class Ressources
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Documents::class, )
+     * @ORM\Column(type="string", length=255)
      */
     private $title;
 
