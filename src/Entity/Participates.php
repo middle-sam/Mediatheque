@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ParticipatesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipatesRepository::class)
@@ -72,5 +74,10 @@ class Participates
         $this->meetUpId = $meetUpId;
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('places', new Assert\LessThanOrEqual(5));
     }
 }

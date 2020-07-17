@@ -147,5 +147,7 @@ class Employee extends User
         $metadata->addPropertyConstraint('email', new Assert\Email([
             'message' => 'The email "{{ value }}" is not a valid email.',
         ]));
+        $metadata->addPropertyConstraint('email', new Assert\NotNull());
+
     }
 }

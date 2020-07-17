@@ -6,6 +6,8 @@ use App\Repository\DocumentsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentsRepository::class)
@@ -140,4 +142,11 @@ class Documents
         return $this->titre;
     }
 
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('cote', new Assert\NotNull());
+        $metadata->addPropertyConstraint('titre', new Assert\NotNull());
+        $metadata->addPropertyConstraint('codeOeuvre', new Assert\NotNull());
+
+    }
 }
