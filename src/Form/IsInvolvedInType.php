@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Creator;
+use App\Entity\Documents;
 use App\Entity\IsInvolvedIn;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,8 +25,14 @@ class IsInvolvedInType extends AbstractType
                     'Scénariste' => 'scénariste',
                 ],
             ])
-            ->add('creatorId')
-            ->add('documentId')
+            ->add('creatorId', EntityType::class, [
+                'class' => Creator::class,
+                'choice_label' => 'firstName',
+            ])
+            ->add('documentId',EntityType::class, [
+                'class' => Documents::class,
+                'choice_label' => 'titre',
+            ])
         ;
     }
 

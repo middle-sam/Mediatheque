@@ -2,25 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Borrowing;
 use App\Entity\Documents;
-use App\Entity\Member;
+use App\Entity\Employee;
+use App\Entity\Maintenance;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BorrowingType extends AbstractType
+class MaintenanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('startDate')
-            ->add('expectedReturnDate')
-            ->add('effectiveReturnDate')
-            ->add('memberId', EntityType::class, [
+            ->add('maintenanceDate')
+            ->add('status')
+            ->add('creator')
+            ->add('employeeId',  EntityType::class, [
 
-                'class' => Member::class,
+                'class' => Employee::class,
                 'choice_label' => 'firstName',
 
             ])
@@ -36,7 +36,7 @@ class BorrowingType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Borrowing::class,
+            'data_class' => Maintenance::class,
         ]);
     }
 }

@@ -33,7 +33,7 @@ class Maintenance
     private $creator;
 
     /**
-     * @ORM\ManyToOne(targetEntity=employee::class, inversedBy="maintenanceId")
+     * @ORM\ManyToOne(targetEntity=Employee::class, inversedBy="maintenanceId")
      * @ORM\JoinColumn(nullable=false)
      */
     private $employeeId;
