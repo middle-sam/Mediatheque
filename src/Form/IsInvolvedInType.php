@@ -28,10 +28,12 @@ class IsInvolvedInType extends AbstractType
             ->add('creatorId', EntityType::class, [
                 'class' => Creator::class,
                 'choice_label' => 'firstName',
+                'label' => 'Nom de l\'invité'
             ])
             ->add('documentId',EntityType::class, [
                 'class' => Documents::class,
                 'choice_label' => 'titre',
+                'label' => 'Nom de l\'oeuvre'
             ])
         ;
     }

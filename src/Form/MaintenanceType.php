@@ -22,12 +22,14 @@ class MaintenanceType extends AbstractType
 
                 'class' => Employee::class,
                 'choice_label' => 'firstName',
+                'label' => 'Nom de l\'employé'
 
             ])
             ->add('documentId', EntityType::class, [
 
                 'class' => Documents::class,
                 'choice_label' => 'titre',
+                'label' => 'Nom de l\'oeuvre'
 
             ])
         ;

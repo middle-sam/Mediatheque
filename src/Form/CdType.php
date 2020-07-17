@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Cd;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,16 @@ class CdType extends AbstractType
         $builder
             ->add('cote')
             ->add('titre')
-            ->add('format')
+            ->add('format',  ChoiceType::class, [
+
+                'choices'  => [ 'single',
+                    'MP3',
+                    'WAV',
+                    'BWF',
+                    'Ogg',
+
+
+                ]])
             ->add('codeOeuvre')
             ->add('plages')
             ->add('duration')

@@ -22,12 +22,15 @@ class BorrowingType extends AbstractType
 
                 'class' => Member::class,
                 'choice_label' => 'firstName',
+                'label' => 'Nom de l\'adhérent'
+
 
             ])
             ->add('documentId', EntityType::class, [
 
                 'class' => Documents::class,
                 'choice_label' => 'titre',
+                'label' => 'Nom de l\'oeuvre'
 
             ])
         ;

@@ -23,6 +23,7 @@ class MeetUpType extends AbstractType
                 'class' => Employee::class,
                 // uses the User.username property as the visible option string
                 'choice_label' => 'firstName',
+                'label' => 'Nom de l\'employé'
 
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,

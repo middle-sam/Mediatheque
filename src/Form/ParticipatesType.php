@@ -20,13 +20,15 @@ class ParticipatesType extends AbstractType
             ->add('userId', EntityType::class, [
 
                 'class' => User::class,
-                'choice_label' => 'firstName'
+                'choice_label' => 'firstName',
+                'label' => 'Nom de l\'utilisateur'
 
             ])
             ->add('meetUpId', EntityType::class, [
 
                 'class' => MeetUp::class,
-                'choice_label' => 'id'
+                'choice_label' => 'id',
+                'label' => 'Evènement'
 
             ])
         ;
