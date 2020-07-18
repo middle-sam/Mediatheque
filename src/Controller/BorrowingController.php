@@ -39,6 +39,11 @@ class BorrowingController extends AbstractController
             $entityManager->persist($borrowing);
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Nouvel emprunt crée avec succès!'
+            );
+
             return $this->redirectToRoute('borrowing_index');
         }
 
@@ -68,6 +73,11 @@ class BorrowingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'notice',
+                'Mise à jour effectuée avec succès !'
+            );
 
             return $this->redirectToRoute('borrowing_index');
         }

@@ -19,10 +19,13 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-    // /**
-    //  * @return Book[] Returns an array of Book objects
-    //  */
-    /*
+
+
+
+    /**
+     * @return Book[] Returns an array of Book objects
+     */
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('b')
@@ -34,7 +37,7 @@ class BookRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Book

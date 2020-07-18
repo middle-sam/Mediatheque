@@ -5,7 +5,11 @@
 
 {% block body %}
     <h1>Borrowing index</h1>
-
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
     <table class="table">
         <thead>
             <tr>
