@@ -9,7 +9,7 @@
 </style>
 
     <div class="jumbotron text-center">
-        <h1>Immobilier 92</h1>
+        <h1>Media'tech </h1>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum minus omnis
             voluptatem exercitationem iure consequatur laudantium! Nesciunt, soluta?
             Quas consectetur eveniet laboriosam pariatur fugit obcaecati ea molestiae
@@ -17,18 +17,18 @@
         </p>
     </div>
     <div class="container">
-        <h2>Les derniers bien</h2>
+        <h2>Nos livres à la une</h2>
         <div class="row flex">
-            {% for property in latestBooks %}
+            {% for book in latestBooks %}
 
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="{{ path('books.show', {id: property.id}) }}">{{ property.titre }}</a>
+                                <a class="text-info" href="{{ path('book_show', {'id': book.id}) }}">{{ book.titre }}</a>
                             </h5>
-                            <p class="card-text">{{ property.city}} ({{ property.zipCode}})</p>
-                            <div class="text-primary" style = 'font-weight:bold; font-size:2rem'>{{ property.formattedPrice }} €</div>
+                            <p class="card-text">{{ book.format}} ({{ book.codeoeuvre}})</p>
+                            <div class="text-info" style = 'font-weight:bold; font-size:2rem'></div>
                         </div>
                     </div>
                 </div>

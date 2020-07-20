@@ -39,6 +39,11 @@ class BookController extends AbstractController
             $entityManager->persist($book);
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Nouveau document crée avec succès!'
+            );
+
             return $this->redirectToRoute('book_index');
         }
 
@@ -69,6 +74,11 @@ class BookController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'notice',
+                'Mise à jour effectuée avec succès!'
+            );
 
             return $this->redirectToRoute('book_index');
         }

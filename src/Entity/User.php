@@ -27,27 +27,27 @@ class User
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $pseudo;
+    protected $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @ORM\OneToMany(targetEntity=Participates::class, mappedBy="userId")
      */
-    private $participatesId;
+    protected $participatesId;
 
     public function __construct()
     {

@@ -28,6 +28,51 @@
         {% endblock %}
     </head>
     <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand text-light" href="{{ path('back_office') }}">Media'Tech'</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-info dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documents</a>
+                    <div class="dropdown-menu">
+                        <a class="nav-link text-info dropdown-header" href="{{ path('documents_index') }}">Documents</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('book_index') }}">Livres</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('ebook_index') }}">Ebooks</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('cd_index') }}">Cd</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('dvd_index') }}">Dvd</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('newspaper_index') }}">Journaux</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('ressources_index') }}">Ressources</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('creator_index') }}">Pratique</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('borrowing_index') }}">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('meet_up_index') }}">Découvrir</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('is_involved_in_index') }}">Nouveautés</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('employee_index') }}">Employe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('maintenance_index') }}">Agenda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('participates_index') }}">Participates</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

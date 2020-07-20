@@ -39,6 +39,11 @@ class CdController extends AbstractController
             $entityManager->persist($cd);
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Document crée avec succès!'
+            );
+
             return $this->redirectToRoute('cd_index');
         }
 
@@ -68,6 +73,11 @@ class CdController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'notice',
+                'Mise à jour effectuée avec succès!'
+            );
 
             return $this->redirectToRoute('cd_index');
         }

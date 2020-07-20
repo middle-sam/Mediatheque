@@ -22,7 +22,7 @@ class DocumentsRepository extends ServiceEntityRepository
     // /**
     //  * @return Documents[] Returns an array of Documents objects
     //  */
-    /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('d')
@@ -34,7 +34,7 @@ class DocumentsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Documents

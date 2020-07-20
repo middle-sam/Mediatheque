@@ -31,7 +31,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand text-light" href="{{ path('back_office') }}">Mediathèque</a>
+        <a class="navbar-brand text-light" href="{{ path('back_office') }}">Media'Tech</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -72,6 +72,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-info" href="{{ path('participates_index') }}">Participates</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('member_index') }}">Adhérents</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -81,13 +84,48 @@
             .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
         </style>
 
-        <div class="example-wrapper">
-            <h1>Hello !{{ controller_name }}! ✅</h1>
+        <div class="container">
+            <h2>Nos livres à la une</h2>
+            <div class="row flex">
+                {% for book in latestBooks %}
 
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a class="text-info" href="{{ path('book_show', {'id': book.id}) }}">{{ book.titre }}</a>
+                                </h5>
+                                <p class="card-text">{{ book.format}} ({{ book.codeoeuvre}})</p>
+                                <div class="text-info" style = 'font-weight:bold; font-size:2rem'>{{ book.id }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
         </div>
+        <div class="container">
+            <h2>Derniers adhérents</h2>
+            <div class="row flex">
+                {% for member in members %}
 
+                    
+
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a class="text-info" href="{{ path('member_show', {'id': member.id}) }}">{{ member.firstName }}</a>
+                                </h5>
+                                <p class="card-text">{{ member.firstName}} ({{ member.lastName}})</p>
+                                <div class="text-info" style = 'font-weight:bold; font-size:2rem'>{{ member.membershipDate | date() }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     {% endblock %}
-
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"  crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

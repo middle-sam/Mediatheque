@@ -40,12 +40,17 @@ class BorrowingController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash(
-                'notice',
+                'success',
                 'Nouvel emprunt crée avec succès!'
             );
 
             return $this->redirectToRoute('borrowing_index');
-        }
+        }//elseif ($form->isSubmitted() && $form->isValid() ){
+         //   $this->addFlash(
+         //       'warning',
+         //       'Une erreur est survenue lors de la création'
+         //   );
+        //}//
 
         return $this->render('borrowing/new.html.twig', [
             'borrowing' => $borrowing,
@@ -75,12 +80,18 @@ class BorrowingController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash(
-                'notice',
-                'Mise à jour effectuée avec succès !'
+                'success',
+                'Mise à jour effectuée avec succès!'
             );
 
+
             return $this->redirectToRoute('borrowing_index');
-        }
+        }//else{
+         //   $this->addFlash(
+         //       'warning',
+         //       'Une erreur est survenue lors de la mise à jour'
+         //   );
+        //}//
 
         return $this->render('borrowing/edit.html.twig', [
             'borrowing' => $borrowing,

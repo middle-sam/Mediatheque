@@ -22,13 +22,13 @@ class Member extends User
     /**
      * @ORM\Column(type="datetime")
      */
-    private $membershipDate;
+    protected $membershipDate;
 
-    private $t = 'sdrgdqsrgg';
+
     /**
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="memberId")
      */
-    private $borrowingId;
+    protected $borrowingId;
 
     public function __construct()
     {
@@ -82,7 +82,7 @@ class Member extends User
 
         return $this;
     }
-    public function __toString(){
-        return $this->t;
-    }
+
+
+
 }

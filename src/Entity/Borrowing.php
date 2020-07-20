@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\BorrowingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BorrowingRepository::class)
@@ -35,6 +37,7 @@ class Borrowing
     /**
      * @ORM\ManyToOne(targetEntity=Member::class, inversedBy="borrowingId")
      * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $memberId;
 
@@ -107,6 +110,11 @@ class Borrowing
         $this->documentId = $documentId;
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('effectiveReturnDate', new Assert\NotBlank());
     }
 
 }
