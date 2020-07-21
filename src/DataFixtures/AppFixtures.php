@@ -54,9 +54,9 @@ class AppFixtures extends Fixture
              */
             if( $rand >= 8 ){
                 $creator->setDeathDate($faker->dateTimeBetween('-100 years', '-1 day'));
-            }elseif( $rand<5 ){
+            }/*elseif( $rand<5 ){
                 $creator->setDeathDate(null);
-            }
+            }*/
 
             $manager->persist($creator);
         }
