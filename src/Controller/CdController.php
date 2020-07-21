@@ -65,6 +65,9 @@ class CdController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="cd_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Cd $cd
+     * @return Response
      */
     public function edit(Request $request, Cd $cd): Response
     {

@@ -49,6 +49,11 @@ class Documents
      */
     private $ressources;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $img;
+
     public function __construct()
     {
         $this->ressources = new ArrayCollection();
@@ -148,5 +153,17 @@ class Documents
         $metadata->addPropertyConstraint('titre', new Assert\NotNull());
         $metadata->addPropertyConstraint('codeOeuvre', new Assert\NotNull());
 
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
     }
 }
