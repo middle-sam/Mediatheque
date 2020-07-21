@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+
+
 use App\Entity\Borrowing;
 use App\Entity\Cd;
 use APP\Entity\Creator;
@@ -15,12 +17,22 @@ use App\Entity\Participates;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Faker;
 
 class AppFixtures extends Fixture
 {
+
+    private $manager;
+
+    public function __construct(EntityManagerInterface $entityManager){
+
+        $this->manager = $entityManager;
+
+    }
     public function load(ObjectManager $manager)
     {
+
 
         $faker = Faker\Factory::create('fr_FR');
 
@@ -28,7 +40,7 @@ class AppFixtures extends Fixture
         /**
          * Création des auteurs
          */
-        for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 50; $i++){
 
             $rand = mt_rand(0,15);
             $creator = new Creator();
@@ -52,7 +64,7 @@ class AppFixtures extends Fixture
         /**
          * Création des livres
          */
-        for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 50; $i++){
 
             $book = new Book();
             $book->setTitre($faker->realText($maxNbChars = 25, $indexSize = 2));
@@ -63,14 +75,14 @@ class AppFixtures extends Fixture
              */
             $book->setCodeOeuvre($faker->regexify('^[AEJR|(JBD)|(RP)|(RSF)|(BD)]-[A-Z]{3}-[A-Z]{1}'));
             $book->setCote($faker->ean8);
-            $book->setPages($faker->numberBetween($min=10, $max=2000 ));
+            $book->setPages($faker->numberBetween($min=10, $max=500 ));
             $manager->persist($book);
         }
 
         /**
          * Création des Cd
          */
-        for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 50; $i++){
 
             $hours= mt_rand(0,3);
             $ms= mt_rand(0,59);
@@ -90,7 +102,7 @@ class AppFixtures extends Fixture
         /**
          * Création des Dvd
          */
-        for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 50; $i++){
 
             $hours= mt_rand(0,3);
             $ms= mt_rand(0,59);
@@ -108,7 +120,7 @@ class AppFixtures extends Fixture
         /**
          * Création des journaux
          */
-        for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 50; $i++){
 
             $newspaper = new Newspaper();
             $newspaper->setTitre($faker->realText($maxNbChars = 20, $indexSize = 2));
@@ -124,7 +136,7 @@ class AppFixtures extends Fixture
         /**
          * Création des ebook
          */
-        for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 50; $i++){
 
             $ebook = new Ebook();
             $ebook->setTitre($faker->realText($maxNbChars = 20, $indexSize = 2));
@@ -138,30 +150,30 @@ class AppFixtures extends Fixture
         /**
          * Création des Emprunts
          */
-        //for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 10; $i++){
 //
-        //    $br = new Borrowing();
-        //    $rand = mt_rand(1,11);
-        //    $br->setMemberId($rand);
-        //    $br->setStartDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
-        //    $br->setExpectedReturnDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
-        //    $br->setEffectiveReturnDate($faker->dateTimeBetween($startDate = '-15days', $endDate = '+15 days', $timezone = null));
-        //    $manager->persist($br);
-        //}
+            $br = new Borrowing();
+            $rand = mt_rand(1,11);
+            $br->setMemberId($rand);
+            $br->setStartDate($faker->dateTimeBetween($startDate = '-365days', $endDate = '+15 days', $timezone = null));
+            $br->setExpectedReturnDate($faker->dateTimeBetween($startDate = '+15days', $endDate = '+60 days', $timezone = null));
+            $br->setEffectiveReturnDate($faker->dateTimeBetween($startDate = '+60days', $endDate = '+75 days', $timezone = null));
+            $manager->persist($br);
+        }
 
         /**
          * Création des Members
          */
-        for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 50; $i++){
             $mbr = new Member();
-            $mbr->setMembershipDate($faker->dateTimeBetween($startDate = '-15 years', $endDate = 'now', $timezone = null));
+            $mbr->setMembershipDate($faker->dateTimeBetween($startDate = '-24 months', $endDate = 'now', $timezone = null));
             $manager->persist($mbr);
         }
 
         /**
          * Création des Users
          */
-        for ($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 50; $i++){
 
             $usr = new User();
             $usr->setPseudo($faker->realText($maxNbChars = 25, $indexSize = 2));
@@ -171,26 +183,26 @@ class AppFixtures extends Fixture
             $manager->persist($usr);
         }
 
-        ///**
-        // * Création des Participates
-        // */
-        //for ($i = 0; $i < 10; $i++){
-//
-        //    $randomInt = mt_rand(15,150);
-        //    $pts = new Participates();
-        //    $pts->setPlaces($randomInt);
-        //    $manager->persist($pts);
-        //}
+        /**
+         * Création des Participates
+         */
+        for ($i = 0; $i < 50; $i++){
+
+            $randomInt = mt_rand(15,150);
+            $pts = new Participates();
+            $pts->setPlaces($randomInt);
+            $manager->persist($pts);
+        }
 
         /**
          * Création des Meetups
          */
-        //for ($i = 0; $i < 15; $i++){
-//
-        //    $mtup = new MeetUp();
-        //    $mtup->setDate($faker->dateTimeBetween($startDate = 'now', $endDate = '+1 month', $timezone = null));
-        //    $manager->persist($mtup);
-        //}
+        for ($i = 0; $i < 15; $i++){
+
+            $mtup = new MeetUp();
+            $mtup->setDate($faker->dateTimeBetween($startDate = 'now', $endDate = '+3 month', $timezone = null));
+            $manager->persist($mtup);
+        }
 
         $manager->flush();
     }

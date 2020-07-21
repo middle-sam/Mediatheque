@@ -26,13 +26,13 @@ class BookRepository extends ServiceEntityRepository
      * @return Book[] Returns an array of Book objects
      */
 
-    public function findByExampleField($value)
+    public function findLatestBooks(/*$value*/)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            //->andWhere('b.exampleField = :val')
+            //->setParameter('val', $value)
+            ->orderBy('b.id', 'DESC')
+            ->setMaxResults(8)
             ->getQuery()
             ->getResult()
         ;

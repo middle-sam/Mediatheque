@@ -23,7 +23,7 @@ class MemberRepository extends ServiceEntityRepository
     //  * @return Member[] Returns an array of Member objects
     //  */
 
-    public function findByExampleField($value)
+    /*public function findByExampleField($value)
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')
@@ -33,6 +33,16 @@ class MemberRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }*/
+
+    public function findLatestMembers()
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.membershipDate', 'DESC')
+            ->setMaxResults(8)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
 

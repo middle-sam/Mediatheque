@@ -19,6 +19,27 @@ class BorrowingRepository extends ServiceEntityRepository
         parent::__construct($registry, Borrowing::class);
     }
 
+
+    public function findAllBorrowings(){
+
+
+
+    }
+
+    /**
+     * @return Borrowing[] returns an array of the most borrowed documents last month
+     */
+    public function findMostBorrowed(){
+
+        return  $this->createQueryBuilder('lb')
+
+            ->select('lb')
+            ->where("lb.startDate > DATESUB(CURRENT_DATE(), 1, 'MONTH')")
+            ->groupBy('lb.id')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Borrowing[] Returns an array of Borrowing objects
     //  */

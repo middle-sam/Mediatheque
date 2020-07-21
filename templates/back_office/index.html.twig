@@ -107,28 +107,44 @@
                 {% endfor %}
             </div>
         </div>
-        <hx:include src={{ path('member_index') }}></hx:include>
-        <!--<div class="container">
+        <div class="container">
             <h2>Derniers adhérents</h2>
             <div class="row flex">
-                {#{% for member in members %}
-
-
-
+                {% for member in members %}
                     <div class="col-3">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a class="text-info" href="{{ path('member_show', {'id': member.id}) }}">{{ member.firstName }}</a>
+                                    <a class="text-info" href="{{ path('member_show', {'id': member.id}) }}">{{ member.pseudo }}</a>
                                 </h5>
-                                <p class="card-text">{{ member.firstName}} ({{ member.lastName}})</p>
-                                <div class="text-info" style = 'font-weight:bold; font-size:2rem'>{{ member.membershipDate | date() }}</div>
+                                <p class="card-text"> ({{ member.membershipDate | date('d-m-Y') }})</p>
+                                <div class="text-info" style = 'font-weight:bold; font-size:2rem'>{{ member.firstName}} {{ member.lastName}}</div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}#}
+                {% endfor %}
             </div>
-        </div>-->
+        </div>
+        <div class="container">
+            <h2>Documents les plus empruntés sur un mois</h2>
+            <div class="row flex">
+                {% for br in mostBorrowed %}
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a class="text-info" href="{{ path('borrowing_show', {'id': br.id}) }}">Numéro de l'emprunt : {{ br.id }}</a>
+                                </h5>
+                                <p class="card-text"> Date d'emprunt : ({{ br.startDate | date('d-m-Y') }})</p>
+                                <div class="text-info" style = 'font-weight:bold; font-size:2rem'>Date de retour : {{ br.effectiveReturnDate | date('d-m-Y')}}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <hx:include src={{ path('borrowing_index') }}></hx:include>
+
     {% endblock %}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"  crossorigin="anonymous"></script>
