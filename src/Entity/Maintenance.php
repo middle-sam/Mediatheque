@@ -78,7 +78,7 @@ class Maintenance
         return $this->creator;
     }
 
-    public function setCreator(string $creator): self
+    public function setCreator(string $creator): ?self
     {
         $this->creator = $creator;
 

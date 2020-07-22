@@ -67,12 +67,12 @@ class Ressources
         return $this;
     }
 
-    public function getTitle(): ?Documents
+    public function getTitle(): self
     {
         return $this->title;
     }
 
-    public function setTitle(?Documents $title): self
+    public function setTitle($title): self
     {
         $this->title = $title;
 
