@@ -39,6 +39,11 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        /**
+         * Ordre de création des fixtures
+         * Fichier à séparer en deux parties à partir de Ressources
+         * Créér les fixtures Docs et user en premier
+         */
 
 
         $faker = Faker\Factory::create('fr_FR');
@@ -54,7 +59,7 @@ class AppFixtures extends Fixture
          * Création des books
          */
     //  for ($i = 0; $i < 50; $i++){
-
+//
     //      $book = new Book();
     //      $book->setTitre($faker->realText($maxNbChars = 25, $indexSize = 2));
     //      $book->setFormat($faker->randomElement($array = array("poche","standard","carré","grand format")));
@@ -65,34 +70,34 @@ class AppFixtures extends Fixture
     //      $book->setCodeOeuvre($faker->regexify('^[AEJR|(JBD)|(RP)|(RSF)|(BD)]-[A-Z]{3}-[A-Z]{1}'));
     //      $book->setCote($faker->ean8);
     //      $book->setPages($faker->numberBetween($min=10, $max=500 ));
-    //      $book->setImg($faker->imageUrl(96, 128, 'abstract'));
+    //      $book->setImg($faker->imageUrl(48, 64, 'abstract'));
     //      $manager->persist($book);
     //  }
     //  $manager->flush();
-
+//
     //  /**
     //   * Création des ebook
     //   */
     //  for ($i = 0; $i < 50; $i++){
-
+//
     //      $ebook = new Ebook();
     //      $ebook->setTitre($faker->realText($maxNbChars = 20, $indexSize = 2));
     //      $ebook->setFormat($faker->randomElement($array = array("poche","standard","carré","grand format")));
     //      $ebook->setCodeOeuvre($faker->regexify('^[AEJR|(JBD)|(RP)|(RSF)|(BD)]-[A-Z]{3}-[A-Z]{1}'));
     //      $ebook->setCote($faker->ean8);
     //      $ebook->setPages($faker->numberBetween($min=10, $max=300 ));
-    //      $ebook->setImg($faker->imageUrl(96, 128, 'abstract'));
+    //      $ebook->setImg($faker->imageUrl(48, 64, 'abstract'));
     //      $manager->persist($ebook);
     //  }
     //  $manager->flush();
-
+//
     //  /**
     //   * Création des Cd
     //   */
     //  for ($i = 0; $i < 50; $i++){
     //      $hours= mt_rand(0,3);
     //      $ms= mt_rand(0,59);
-
+//
     //      $randomInt = mt_rand(15,150);
     //      $cd = new Cd();
     //      $cd->setTitre($faker->realText($maxNbChars = 20, $indexSize = 2));
@@ -101,35 +106,35 @@ class AppFixtures extends Fixture
     //      $cd->setCote($faker->ean8);
     //      $cd->setPlages($randomInt);
     //      $cd->setDuration("$hours:$ms:$ms");
-    //      $cd->setImg($faker->imageUrl(96, 128, 'nature'));
+    //      $cd->setImg($faker->imageUrl(48, 64, 'nature'));
     //      $manager->persist($cd);
     //  }
     //  $manager->flush();
-
+//
     //  /**
     //   * Création des Dvd
     //   */
     //  for ($i = 0; $i < 50; $i++){
-
+//
     //      $hours= mt_rand(0,3);
     //      $ms= mt_rand(0,59);
-
+//
     //      $dvd = new Dvd();
     //      $dvd->setTitre($faker->realText($maxNbChars = 20, $indexSize = 2));
     //      $dvd->setFormat($faker->randomElement($array = array("VCD","SVCD","DVD","")));
     //      $dvd->setCodeOeuvre($faker->regexify('^[AEJR|(JBD)|(RP)|(RSF)|(BD)]-[A-Z]{3}-[A-Z]{1}'));
     //      $dvd->setCote($faker->ean8);
     //      $dvd->setDuration("$hours:$ms:$ms");
-    //      $dvd->setImg($faker->imageUrl(96, 128, 'technics'));
+    //      $dvd->setImg($faker->imageUrl(48, 64, 'technics'));
     //      $manager->persist($dvd);
     //  }
     //  $manager->flush();
-
+//
     //  /**
     //   * Création des journaux
     //   */
     //  for ($i = 0; $i < 50; $i++){
-
+//
     //      $newspaper = new Newspaper();
     //      $newspaper->setTitre($faker->realText($maxNbChars = 20, $indexSize = 2));
     //      $newspaper->setFormat($faker->randomElement($array = array("single","album")));
@@ -137,16 +142,16 @@ class AppFixtures extends Fixture
     //      $newspaper->setCote($faker->ean8);
     //      $newspaper->setPeriodicity($faker->randomElement($array = array("Quotidien","Hebdomadaire","Mensuel")));
     //      $newspaper->setSubscriptionDate($faker->dateTimeBetween('-10 years', '-1 day'));
-    //      $newspaper->setImg($faker->imageUrl(96, 128, 'city'));
+    //      $newspaper->setImg($faker->imageUrl(48, 64, 'city'));
     //      $manager->persist($newspaper);
     //  }
     //  $manager->flush();
-
+//
     //  /**
     //   * Création des auteurs
     //   */
     //  for ($i = 0; $i < 50; $i++){
-
+//
     //      $rand = mt_rand(0,15);
     //      $creator = new Creator();
     //      $creator->setFirstName($faker->firstName);
@@ -158,8 +163,8 @@ class AppFixtures extends Fixture
     //      $manager->persist($creator);
     //  }
     //  $manager->flush();
-
-
+//
+//
     // /**
     // /* Création des Members
     // /*/
@@ -173,7 +178,7 @@ class AppFixtures extends Fixture
     //     $manager->persist($mbr);
     // }
     // $manager->flush();
-
+//
     //  /**
     //  /* Création des employés
     //  /*/
@@ -188,12 +193,12 @@ class AppFixtures extends Fixture
     //      $manager->persist($employee);
     //  }
     //  $manager->flush();
-
+//
     //  /**
     //  /* Création des Meetups
     //  /*/
     //  for ($i = 51; $i <= 100; $i++) {
-
+//
     //      $mtup = new MeetUp();
     //      $mtup->setDate($faker->dateTimeBetween($startDate = 'now', $endDate = '+3 month', $timezone = null));
     //      $mtup->setEmployeeId($employeeRep->find($i));

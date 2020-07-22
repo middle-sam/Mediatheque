@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:hx="http://purl.org/NET/hinclude">
 <head>
-    <script src={{ asset('../public/assets/js/hinclude-1.2.0/hinclude.js') }} type="text/javascript"></script>
+    <script src={{ asset('assets/js/hinclude-1.2.0/hinclude.js') }} type="text/javascript"></script>
 
     <meta charset="UTF-8">
     <title>{% block title %}BackOffice | Home!{% endblock %}</title>
@@ -98,6 +98,7 @@
                                 <h5 class="card-title">
                                     <a class="text-info" href="{{ path('book_show', {'id': book.id}) }}">{{ book.titre }}</a>
                                 </h5>
+                                <img src="{{ book.img}}" class="image-rounded" style="height: 75%; width: auto" alt="preview_image">
                                 <p class="card-text">{{ book.format}} ({{ book.codeoeuvre}})</p>
                                 <div class="text-info" style = 'font-weight:bold; font-size:2rem'>{{ book.id }}</div>
                             </div>
@@ -143,9 +144,13 @@
                 {% endfor %}
             </div>
         </div>
-        <hx:include src={{ path('borrowing_index') }}></hx:include>
+        {#<hx:include src={{ path('borrowing_index') }}></hx:include>#}
+        {{ render_hinclude(controller('App\\Controller\\BorrowingController::index')) }}
 
     {% endblock %}
+    {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"  crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {% endblock %}
+</body>
