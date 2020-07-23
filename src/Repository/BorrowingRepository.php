@@ -40,6 +40,17 @@ class BorrowingRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findExpiredBorrowings(){
+
+        return $this->createQueryBuilder('xp')
+            ->select('xp')
+            ->where('xp.expectedReturnDate < CURRENT_DATE()')
+            ->groupBy('xp.memberId')
+            ->orderBy('xp.expectedReturnDate', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Borrowing[] Returns an array of Borrowing objects
     //  */

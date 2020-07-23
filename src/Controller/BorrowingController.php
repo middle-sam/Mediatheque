@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Borrowing;
 use App\Form\BorrowingType;
 use App\Repository\BorrowingRepository;
+use App\Service\MessageBorrowing;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,24 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BorrowingController extends AbstractController
 {
+
+    /**
+     * @Route("/eb", name="expectedBorrowings", methods={"GET"})
+     * @param BorrowingRepository $borrowingRepository
+     * @param MessageBorrowing $expiredBorrowings
+     * @return Response
+     */
+    public function expiredBorrowings(BorrowingRepository $borrowingRepository, MessageBorrowing $expiredBorrowings): Response
+    {
+        //$message = $expiredBorrowings->getBorrowingsMessage();
+        //$this->addFlash('alert', $message);
+
+        return $this->render('borrowing/expiredBorrowings.html.twig', [
+            'expiredBorrowings' => $borrowingRepository->findExpiredBorrowings(),
+            'expiredMessage'=> $expiredBorrowings->getBorrowingsMessage()
+        ]);
+    }
+
     /**
      * @Route("/", name="borrowing_index", methods={"GET"})
      */
@@ -24,6 +43,8 @@ class BorrowingController extends AbstractController
             'borrowings' => $borrowingRepository->findAll(),
         ]);
     }
+
+
 
     /**
      * @Route("/new", name="borrowing_new", methods={"GET","POST"})
@@ -57,6 +78,8 @@ class BorrowingController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 
     /**
      * @Route("/{id}", name="borrowing_show", methods={"GET"})
@@ -112,4 +135,8 @@ class BorrowingController extends AbstractController
 
         return $this->redirectToRoute('borrowing_index');
     }
+
+
+
+
 }

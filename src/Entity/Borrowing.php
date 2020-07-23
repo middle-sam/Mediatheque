@@ -114,7 +114,7 @@ class Borrowing
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('effectiveReturnDate', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('expectedReturnDate', new Assert\NotBlank());
     }
 
 }
