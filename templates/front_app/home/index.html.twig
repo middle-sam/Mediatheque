@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    <div class="jumbotron text-center">
+        <h1>Media'tech </h1>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum minus omnis
+            voluptatem exercitationem iure consequatur laudantium! Nesciunt, soluta?
+            Quas consectetur eveniet laboriosam pariatur fugit obcaecati ea molestiae
+            sunt earum at.
+        </p>
+    </div>
+    <div class="container">
+        <h2>Nos livres à la une</h2>
+        <div class="row flex">
+            {% for book in latestBooks %}
+
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="text-info" href="{{ path('book_show', {'id': book.id}) }}">{{ book.titre }}</a>
+                            </h5>
+                            <p class="card-text">{{ book.format}} ({{ book.codeoeuvre}})</p>
+                            <div class="text-info" style = 'font-weight:bold; font-size:2rem'></div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

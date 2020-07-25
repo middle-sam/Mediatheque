@@ -1,0 +1,13 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Edit Newspaper{% endblock %}
+
+{% block body %}
+    <h1>Edit Newspaper</h1>
+
+    {{ include('newspaper/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('newspaper_index') }}">back to list</a>
+
+    {{ include('newspaper/_delete_form.html.twig') }}
+{% endblock %}

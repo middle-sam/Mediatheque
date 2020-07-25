@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ParticipatesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipatesRepository::class)
@@ -23,13 +25,13 @@ class Participates
     private $places;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="participatesId")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="participatesId")
      * @ORM\JoinColumn(nullable=false)
      */
     private $userId;
 
     /**
-     * @ORM\ManyToOne(targetEntity=meetUp::class)
+     * @ORM\ManyToOne(targetEntity=MeetUp::class)
      */
     private $meetUpId;
 
@@ -72,5 +74,10 @@ class Participates
         $this->meetUpId = $meetUpId;
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('places', new Assert\LessThanOrEqual(5));
     }
 }

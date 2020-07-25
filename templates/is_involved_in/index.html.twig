@@ -1,0 +1,35 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}IsInvolvedIn index{% endblock %}
+
+{% block body %}
+    <h1>IsInvolvedIn index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Role</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for is_involved_in in is_involved_ins %}
+            <tr>
+                <td>{{ is_involved_in.id }}</td>
+                <td>{{ is_involved_in.role }}</td>
+                <td>
+                    <a href="{{ path('is_involved_in_show', {'id': is_involved_in.id}) }}">show</a>
+                    <a href="{{ path('is_involved_in_edit', {'id': is_involved_in.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('is_involved_in_new') }}">Create new</a>
+{% endblock %}

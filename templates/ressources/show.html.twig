@@ -1,0 +1,30 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Ressources{% endblock %}
+
+{% block body %}
+    <h1>Ressources</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ressource.id }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ ressource.url }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ ressource.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ressources_index') }}">back to list</a>
+
+    <a href="{{ path('ressources_edit', {'id': ressource.id}) }}">edit</a>
+
+    {{ include('ressources/_delete_form.html.twig') }}
+{% endblock %}

@@ -6,6 +6,8 @@ use App\Repository\DocumentsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentsRepository::class)
@@ -20,7 +22,7 @@ class Documents
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -43,9 +45,14 @@ class Documents
     private $codeOeuvre;
 
     /**
-     * @ORM\OneToMany(targetEntity=Ressources::class, mappedBy="title")
+     * @ORM\OneToMany(targetEntity=Ressources::class, mappedBy="documentId")
      */
     private $ressources;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $img;
 
     public function __construct()
     {
@@ -132,6 +139,30 @@ class Documents
                 $ressource->setTitle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->titre;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('cote', new Assert\NotNull());
+        $metadata->addPropertyConstraint('titre', new Assert\NotNull());
+        $metadata->addPropertyConstraint('codeOeuvre', new Assert\NotNull());
+
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }

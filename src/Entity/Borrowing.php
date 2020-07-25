@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\BorrowingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BorrowingRepository::class)
@@ -18,23 +20,24 @@ class Borrowing
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $expectedReturnDate;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $effectiveReturnDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=member::class, inversedBy="borrowindId")
+     * @ORM\ManyToOne(targetEntity=Member::class, inversedBy="borrowingId")
      * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $memberId;
 
@@ -85,12 +88,12 @@ class Borrowing
         return $this;
     }
 
-    public function getMemberId(): ?member
+    public function getMemberId(): ?Member
     {
         return $this->memberId;
     }
 
-    public function setMemberId(?member $memberId): self
+    public function setMemberId(?Member $memberId): self
     {
         $this->memberId = $memberId;
 
@@ -107,6 +110,11 @@ class Borrowing
         $this->documentId = $documentId;
 
         return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('expectedReturnDate', new Assert\NotBlank());
     }
 
 }

@@ -23,7 +23,7 @@ class IsInvolvedIn
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity=creator::class)
+     * @ORM\ManyToOne(targetEntity=Creator::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $creatorId;

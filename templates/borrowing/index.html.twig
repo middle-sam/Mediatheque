@@ -1,0 +1,51 @@
+{% extends 'back_office/index.html.twig' %}
+
+
+{% block title %}Borrowing index{% endblock %}
+
+{% block body %}
+    <h1>Borrowing index</h1>
+    {#{% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}#}
+    {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>StartDate</th>
+                <th>ExpectedReturnDate</th>
+                <th>EffectiveReturnDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for borrowing in borrowings %}
+            <tr>
+                <td>{{ borrowing.id }}</td>
+                <td>{{ borrowing.startDate ? borrowing.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ borrowing.expectedReturnDate ? borrowing.expectedReturnDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ borrowing.effectiveReturnDate ? borrowing.effectiveReturnDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('borrowing_show', {'id': borrowing.id}) }}">show</a>
+                    <a href="{{ path('borrowing_edit', {'id': borrowing.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('borrowing_new') }}">Create new</a>
+{% endblock %}

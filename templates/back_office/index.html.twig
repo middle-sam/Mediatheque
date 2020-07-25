@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:hx="http://purl.org/NET/hinclude">
+<head>
+    <script src={{ asset('assets/js/hinclude-1.2.0/hinclude.js') }} type="text/javascript"></script>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}BackOffice | Home!{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="include_mode" content="async" />
+
+
+    <!-- Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Stylesheets -->
+
+
+    {% block stylesheets %}
+
+        <link href="{{ asset('../public/assets/css/style.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('../public/assets/css/common-css/ionicons.css') }}" type="text/css" rel="stylesheet">
+
+        <link href="{{ asset('../public/assets/css/font-awesome.min.css') }}" type="text/css" rel="stylesheet">
+
+
+    {% endblock %}
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand text-light" href="{{ path('back_office') }}">Media'Tech</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-info dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documents</a>
+                    <div class="dropdown-menu">
+                        <a class="nav-link text-info dropdown-header" href="{{ path('documents_index') }}">Documents</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('book_index') }}">Livres</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('ebook_index') }}">Ebooks</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('cd_index') }}">Cd</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('dvd_index') }}">Dvd</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('newspaper_index') }}">Journaux</a>
+                        <a class="nav-link text-info dropdown-item" href="{{ path('ressources_index') }}">Ressources</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('creator_index') }}">Creator</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('borrowing_index') }}">Emprunt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('meet_up_index') }}">Evènements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('is_involved_in_index') }}">Oeuvres/Role</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('employee_index') }}">Employe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('maintenance_index') }}">Maintenance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('participates_index') }}">Participates</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="{{ path('member_index') }}">Adhérents</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% block body %}
+        <style>
+            .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+            .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        </style>
+
+        <div class="container">
+            <h2>Nos livres à la une</h2>
+            <div class="row flex">
+                {% for book in latestBooks %}
+
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a class="text-info" href="{{ path('book_show', {'id': book.id}) }}">{{ book.titre }}</a>
+                                </h5>
+                                <img src="{{ book.img}}" class="image-rounded" style="height: 75%; width: auto" alt="preview_image">
+                                <p class="card-text">{{ book.format}} ({{ book.codeoeuvre}})</p>
+                                <div class="text-info" style = 'font-weight:bold; font-size:2rem'>{{ book.id }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+        <div class="container">
+            <h2>Derniers adhérents</h2>
+            <div class="row flex">
+                {% for member in members %}
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a class="text-info" href="{{ path('member_show', {'id': member.id}) }}">{{ member.pseudo }}</a>
+                                </h5>
+                                <p class="card-text"> ({{ member.membershipDate | date('d-m-Y') }})</p>
+                                <div class="text-info" style = 'font-weight:bold; font-size:2rem'>{{ member.firstName}} {{ member.lastName}}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="container">
+            <h2>Documents les plus empruntés sur un mois</h2>
+            <div class="row flex">
+                {% for br in mostBorrowed %}
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a class="text-info" href="{{ path('borrowing_show', {'id': br.id}) }}">Numéro de l'emprunt : {{ br.id }}</a>
+                                </h5>
+                                <p class="card-text"> Date d'emprunt : ({{ br.startDate | date('d-m-Y') }})</p>
+                                <div class="text-info" style = 'font-weight:bold; font-size:2rem'>Date de retour : {{ br.effectiveReturnDate | date('d-m-Y')}}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {#<hx:include src={{ path('borrowing_index') }}></hx:include>#}
+        {{ render(controller('App\\Controller\\BorrowingController::index')) }}
+
+
+
+    {% endblock %}
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    

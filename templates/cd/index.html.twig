@@ -1,0 +1,46 @@
+{% extends 'back_office/index.html.twig' %}
+
+
+{% block title %}Cd index{% endblock %}
+
+{% block body %}
+    <h1>Cd index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cote</th>
+                <th>Titre</th>
+                <th>Format</th>
+                <th>CodeOeuvre</th>
+                <th>Plages</th>
+                <th>Duration</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cd in cds %}
+            <tr>
+                <td>{{ cd.id }}</td>
+                <td>{{ cd.cote }}</td>
+                <td>{{ cd.titre }}</td>
+                <td>{{ cd.format }}</td>
+                <td>{{ cd.codeOeuvre }}</td>
+                <td>{{ cd.plages }}</td>
+                <td>{{ cd.duration ? cd.duration|date('H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('cd_show', {'id': cd.id}) }}">show</a>
+                    <a href="{{ path('cd_edit', {'id': cd.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('cd_new') }}">Create new</a>
+{% endblock %}

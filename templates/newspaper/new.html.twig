@@ -1,0 +1,11 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}New Newspaper{% endblock %}
+
+{% block body %}
+    <h1>Create new Newspaper</h1>
+
+    {{ include('newspaper/_form.html.twig') }}
+
+    <a href="{{ path('newspaper_index') }}">back to list</a>
+{% endblock %}

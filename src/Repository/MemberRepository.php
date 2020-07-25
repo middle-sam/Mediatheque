@@ -22,19 +22,29 @@ class MemberRepository extends ServiceEntityRepository
     // /**
     //  * @return Member[] Returns an array of Member objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    /*public function findByExampleField($value)
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')
             ->setParameter('val', $value)
             ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults(5)
             ->getQuery()
             ->getResult()
         ;
+    }*/
+
+    public function findLatestMembers()
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.membershipDate', 'DESC')
+            ->setMaxResults(8)
+            ->getQuery()
+            ->getResult()
+            ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Member

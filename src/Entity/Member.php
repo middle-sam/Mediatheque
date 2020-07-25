@@ -17,21 +17,22 @@ class Member extends User
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $membershipDate;
+    protected $membershipDate;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Borrowing::class, mappedBy="memberId")
      */
-    private $borrowindId;
+    protected $borrowingId;
 
     public function __construct()
     {
-        $this->borrowindId = new ArrayCollection();
+        $this->borrowingId = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,31 +55,34 @@ class Member extends User
     /**
      * @return Collection|Borrowing[]
      */
-    public function getBorrowindId(): Collection
+    public function getBorrowingId(): Collection
     {
-        return $this->borrowindId;
+        return $this->borrowingId;
     }
 
-    public function addBorrowindId(Borrowing $borrowindId): self
+    public function addBorrowingId(Borrowing $borrowingId): self
     {
-        if (!$this->borrowindId->contains($borrowindId)) {
-            $this->borrowindId[] = $borrowindId;
-            $borrowindId->setMemberId($this);
+        if (!$this->borrowingId->contains($borrowingId)) {
+            $this->borrowingId[] = $borrowingId;
+            $borrowingId->setMemberId($this);
         }
 
         return $this;
     }
 
-    public function removeBorrowindId(Borrowing $borrowindId): self
+    public function removeBorrowingId(Borrowing $borrowingId): self
     {
-        if ($this->borrowindId->contains($borrowindId)) {
-            $this->borrowindId->removeElement($borrowindId);
+        if ($this->borrowingId->contains($borrowingId)) {
+            $this->borrowingId->removeElement($borrowingId);
             // set the owning side to null (unless already changed)
-            if ($borrowindId->getMemberId() === $this) {
-                $borrowindId->setMemberId(null);
+            if ($borrowingId->getMemberId() === $this) {
+                $borrowingId->setMemberId(null);
             }
         }
 
         return $this;
     }
+
+
+
 }

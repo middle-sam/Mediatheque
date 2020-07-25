@@ -1,0 +1,37 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Ressources index{% endblock %}
+
+{% block body %}
+    <h1>Ressources index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Url</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ressource in ressources %}
+            <tr>
+                <td>{{ ressource.id }}</td>
+                <td>{{ ressource.url }}</td>
+                <td>{{ ressource.type }}</td>
+                <td>
+                    <a href="{{ path('ressources_show', {'id': ressource.id}) }}">show</a>
+                    <a href="{{ path('ressources_edit', {'id': ressource.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ressources_new') }}">Create new</a>
+{% endblock %}

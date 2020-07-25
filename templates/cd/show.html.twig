@@ -1,0 +1,46 @@
+{% extends 'back_office/index.html.twig' %}
+
+{% block title %}Cd{% endblock %}
+
+{% block body %}
+    <h1>Cd</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cd.id }}</td>
+            </tr>
+            <tr>
+                <th>Cote</th>
+                <td>{{ cd.cote }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ cd.titre }}</td>
+            </tr>
+            <tr>
+                <th>Format</th>
+                <td>{{ cd.format }}</td>
+            </tr>
+            <tr>
+                <th>CodeOeuvre</th>
+                <td>{{ cd.codeOeuvre }}</td>
+            </tr>
+            <tr>
+                <th>Plages</th>
+                <td>{{ cd.plages }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ cd.duration ? cd.duration|date('H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('cd_index') }}">back to list</a>
+
+    <a href="{{ path('cd_edit', {'id': cd.id}) }}">edit</a>
+
+    {{ include('cd/_delete_form.html.twig') }}
+{% endblock %}
