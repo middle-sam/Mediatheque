@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creator index{% endblock %}
+
+{% block body %}
+    <h1>Creator index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>BirthDate</th>
+                <th>DeathDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for creator in creators %}
+            <tr>
+                <td>{{ creator.id }}</td>
+                <td>{{ creator.firstName }}</td>
+                <td>{{ creator.lastName }}</td>
+                <td>{{ creator.birthDate ? creator.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ creator.deathDate ? creator.deathDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('creator_show', {'id': creator.id}) }}">show</a>
+                    <a href="{{ path('creator_edit', {'id': creator.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('creator_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creator{% endblock %}
+
+{% block body %}
+    <h1>Creator</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ creator.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ creator.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ creator.lastName }}</td>
+            </tr>
+            <tr>
+                <th>BirthDate</th>
+                <td>{{ creator.birthDate ? creator.birthDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DeathDate</th>
+                <td>{{ creator.deathDate ? creator.deathDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('creator_index') }}">back to list</a>
+
+    <a href="{{ path('creator_edit', {'id': creator.id}) }}">edit</a>
+
+    {{ include('creator/_delete_form.html.twig') }}
+{% endblock %}
