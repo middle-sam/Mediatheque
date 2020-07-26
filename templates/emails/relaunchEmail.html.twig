@@ -5,7 +5,7 @@
 
 Bonjour {{ member.memberId.firstName }} {{ member.memberId.lastName }}!
 Votre emprunt n° {{ member.id }} est expiré depuis le {{ member.expectedReturnDate | date('d-m-Y')}}.
-Ceci est la {#{ message.key }}, {{ message.value }#} sans retour de votre part
+{% for key, expm in messages %}{% if member.id == key %} {{ expm }}{% endif %} {% endfor %}
 
 
 {#example, assuming you have a route named "login" #}

@@ -20,3 +20,4 @@ doctrine:
             datetime_functions:
                 MONTH: DoctrineExtensions\Query\Mysql\Month
                 YEAR: DoctrineExtensions\Query\Mysql\Year
+                datesub: DoctrineExtensions\Query\Mysql\DateSub

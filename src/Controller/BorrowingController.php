@@ -18,24 +18,20 @@ class BorrowingController extends AbstractController{
 
     /**
      * @Route("/eb", name="expectedBorrowings", methods={"GET"})
-     * @param BorrowingRepository $borrowing
+     * @param BorrowingRepository $expiredBorrowings
      * @param RelaunchManager $relaunch
      * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function expiredBorrowings(BorrowingRepository $borrowing, RelaunchManager $relaunch, \Swift_Mailer $mailer): Response
+    public function expiredBorrowings(BorrowingRepository $expiredBorrowings, RelaunchManager $relaunch): Response
     {
         //Utiliser $mailer pour l'envoi des mails
-
-        //$message = $expiredBorrowings->getBorrowingsMessage();
-        //$this->addFlash('alert', $message);
-
 
         /**
          * Calcule de la différence en semaines entre expectedreturndate et now
          * création d'un aray liant les emprunts.id et le niveau de relance en fonction de cette !=
          */
-        $queryResult = $borrowing->findExpiredBorrowingsByMember();
+        $queryResult = $expiredBorrowings->findExpiredBorrowingsByMember();
         $date = new \DateTime;
         $tab = [];
         foreach ($queryResult as $qr) {
@@ -52,8 +48,19 @@ class BorrowingController extends AbstractController{
             }
         }
 
+        /**
+         * Envoi des mails aux membres dont les emprunts ont expiré
+         */
+        foreach ($queryResult as $qr) {
+            $relaunch->notify($qr,$expiredBorrowings);
+        }
+
+
+        /**
+         * Rendu de la vue
+         */
         return $this->render('borrowing/expiredBorrowings.html.twig', [
-            'expiredBorrowings' => $borrowing->findExpiredBorrowingsByMember(),
+            'expiredBorrowings' => $expiredBorrowings->findExpiredBorrowingsByMember(),
             'now' => $date,
             'expiredMessage'=> $relaunch->getBorrowingsMessage(),
             'tab' => $tab
@@ -62,6 +69,8 @@ class BorrowingController extends AbstractController{
 
     /**
      * @Route("/", name="borrowing_index", methods={"GET"})
+     * @param BorrowingRepository $borrowingRepository
+     * @return Response
      */
     public function index(BorrowingRepository $borrowingRepository): Response
     {

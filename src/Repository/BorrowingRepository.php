@@ -1,14 +1,9 @@
 <?php
 
 namespace App\Repository;
-
 use App\Entity\Borrowing;
-use App\Entity\Member;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
-use DoctrineExtensions\Query\Mysql\IfNull;
-use DoctrineExtensions\Query\Mysql\DateSub;
 
 /**
  * @method Borrowing|null find($id, $lockMode = null, $lockVersion = null)
@@ -55,9 +50,9 @@ class BorrowingRepository extends ServiceEntityRepository
 
     public function findExpiredBorrowingsByMember(){
 
-        $result =  $this->createQueryBuilder('xpm')
+        return  $this->createQueryBuilder('xpm')
             ->select('xpm')
-            //Inner join n'est pas
+            //Inner join n'est pas necessaire ici, symfony fait la jointure entre les tables par l'alias 'm'
             //->innerJoin(
             //    'xpm.memberId',
             //    'm'
@@ -67,8 +62,6 @@ class BorrowingRepository extends ServiceEntityRepository
             ->orderBy('xpm.id', 'ASC')
             ->getQuery()
             ->getResult();
-
-        return $result;
 
     }
 

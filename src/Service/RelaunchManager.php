@@ -26,42 +26,62 @@ class RelaunchManager
 
     public function getBorrowingsMessage()
     {
-        $messages = [
-            'première relance'=> "N\'oubliez de nous retourner l'emprunt n°   dès que possible",
-            'seconde relance'=>  "Ceci est la seconde relance concernant le document suivant : ",
-            'dernière relance'=> "Ceci est la troisème et dernière relance concernant le document suivant : "
-        ]
-        ;
-       // $index = array_rand($messages);
-        return $messages;
+       $messages = [
+           'première relance'=> 'N\'oubliez pas de restituer votre emprunt...',
+           'seconde relance'=> 'Ceci est la seconde et dernière relance...',
+           'dernière relance'=> 'Ceci est la troisème et dernière relance, sans retour de votre part dans un délai de 24h.... '
+       ]
+       ;
+       //$index = array_rand($messages);
+       return $messages;
     }
 
-    public function notify(Borrowing $borrowingEntity)
+    public function notify(Borrowing $borrowing, BorrowingRepository $expiredBorrowings)
     {
-        //$erd = $contact->expectedReturnDate;
+        //$erd = $borrowingEntity->getExpectedReturnDate();
         //$borrowing = new Borrowing;
-        $currentDate = new \DateTime();
-        $expectedReturnDate= $borrowingEntity->getExpectedReturnDate();
-        $interval = $currentDate->diff($expectedReturnDate);
+        //$currentDate = new \DateTime();
+        //$expectedReturnDate= $borrowingEntity->getExpectedReturnDate();
+        //$interval = $currentDate->diff($expectedReturnDate);
 
+        $queryResult = $expiredBorrowings->findExpiredBorrowingsByMember();
+        $date = new \DateTime;
+        $messages = [];
 
+        foreach ($queryResult as $qr){
 
-        $customMessages = $this->getBorrowingsMessage();
+            $interval = date_diff($date, $qr->getExpectedReturnDate());
+            $diffInWeeks = floor(intval($interval->format('%a')) / 7);
 
-         $message = (new \Swift_Message('Hello Email'))
-                ->setFrom('sami.serbout@gmail.com')
-                ->setTo('sami.serbout@gmail.com')
-                ->setBody(//'sldijfg','text/html'
-                    $this->renderer->render(
-                        'emails/relaunchEmail.html.twig',
-                        ['member' => $borrowingEntity,
-                          'customMessages' => $customMessages,
-                        ]
-                    ),
-                    'text/html'
-                );
+            if($diffInWeeks<2){
+                $messages[$qr->getId()] = $this->getBorrowingsMessage()['première relance'];
+            }elseif($diffInWeeks > 2 && $diffInWeeks<4){
+                $messages[$qr->getId()] = $this->getBorrowingsMessage()['seconde relance'];
+            }else{
+                $messages[$qr->getId()] = $this->getBorrowingsMessage()['dernière relance'];
+            }
+
+                $message = (new \Swift_Message($borrowing->getMemberId()->getFirstname().' '.$borrowing->getMemberId()->getLastName()))
+                    ->setFrom("sami.serbout@gmail.com")
+                    ->setTo('sami.serbout@gmail.com')
+                    ->setBody(//'sldijfg','text/html'
+                        $this->renderer->render(
+                            'emails/relaunchEmail.html.twig',
+                            [
+                                'member' => $borrowing,
+                                'messages' => $messages,
+                            ]
+                        ),
+                        'text/html'
+                    );
+
+        }
 
         $this->mailer->send($message);
+
+
+
+
 
 
         //return $this->render(...);
