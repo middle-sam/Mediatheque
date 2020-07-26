@@ -14,15 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/borrowing")
  */
-class BorrowingController extends AbstractController
-{
-
-
-
-
-
-
-
+class BorrowingController extends AbstractController{
 
     /**
      * @Route("/eb", name="expectedBorrowings", methods={"GET"})
@@ -37,24 +29,23 @@ class BorrowingController extends AbstractController
 
         //$message = $expiredBorrowings->getBorrowingsMessage();
         //$this->addFlash('alert', $message);
+
+
+        /**
+         * Calcule de la différence en semaines entre expectedreturndate et now
+         * création d'un aray liant les emprunts.id et le niveau de relance en fonction de cette !=
+         */
         $queryResult = $borrowing->findExpiredBorrowingsByMember();
-
         $date = new \DateTime;
-        $ds= $date->format('Y-m-d H:i:s');
-        echo $ds;
-        //$interval = date_diff($date, $queryResult->getExpectedReturnDate());
-
         $tab = [];
         foreach ($queryResult as $qr) {
 
             $interval = date_diff($date, $qr->getExpectedReturnDate());
-            $dss = floor(intval($interval->format('%a')) / 7);
-            echo $dss . ' ' . $qr->getId();
-            echo '</br>';
+            $diffInWeeks = floor(intval($interval->format('%a')) / 7);
 
-            if($dss<2){
+            if($diffInWeeks<2){
                 $tab[$qr->getId()] = 'première relance';
-            }elseif($dss > 2 && $dss<4){
+            }elseif($diffInWeeks > 2 && $diffInWeeks<4){
                 $tab[$qr->getId()] = 'seconde relance';
             }else{
                 $tab[$qr->getId()] = 'dernière relance';
@@ -67,10 +58,6 @@ class BorrowingController extends AbstractController
             'expiredMessage'=> $relaunch->getBorrowingsMessage(),
             'tab' => $tab
         ]);
-
-
-
-
     }
 
     /**
