@@ -10,8 +10,11 @@
         <thead>
         <tr>
             <th>Id</th>
+            <td>Prénom</td>
+            <td>Nom</td>
             <th>StartDate</th>
             <th>ExpectedReturnDate</th>
+            <th>EffectiveReturnDate</th>
             <th>Message</th>
             <th>actions</th>
         </tr>
@@ -20,13 +23,13 @@
         {% for eb in expiredBorrowings %}
             <tr>
                 <td>{{ eb.id }}</td>
-                <td>{{ eb.startDate ? eb.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ eb.expectedReturnDate ? eb.expectedReturnDate|date('Y-m-d H:i:s') : '' }}</td>
-
+                <td>{{ eb.memberId.firstName }}</td>
+                <td>{{ eb.memberId.lastName }}</td>
+                <td>{{ eb.startDate ? eb.startDate|date('d-m-Y') : '' }}</td>
+                <td>{{ eb.expectedReturnDate ? eb.expectedReturnDate|date('d-m-Y') : '' }}</td>
+                <td>{{ now | date('d-m-Y')}}</td>
 
                 <td class="alert alert-danger">{{ expiredMessage }}</td>
-
-
                 <td>
                     <a href="{{ path('borrowing_show', {'id': eb.id}) }}">show</a>
                     <a href="{{ path('borrowing_edit', {'id': eb.id}) }}">edit</a>

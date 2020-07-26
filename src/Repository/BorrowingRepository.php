@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Borrowing;
+use App\Entity\Member;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use DoctrineExtensions\Query\Mysql\IfNull;
+use DoctrineExtensions\Query\Mysql\DateSub;
 
 /**
  * @method Borrowing|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,11 +24,7 @@ class BorrowingRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllBorrowings(){
 
-
-
-    }
 
     /**
      * @return Borrowing[] returns an array of the most borrowed documents last month
@@ -42,13 +42,34 @@ class BorrowingRepository extends ServiceEntityRepository
 
     public function findExpiredBorrowings(){
 
-        return $this->createQueryBuilder('xp')
+        $expireBorrowings =  $this->createQueryBuilder('xp')
             ->select('xp')
             ->where('xp.expectedReturnDate < CURRENT_DATE()')
             ->groupBy('xp.memberId')
             ->orderBy('xp.expectedReturnDate', 'ASC')
             ->getQuery()
             ->getResult();
+        return $expireBorrowings;
+    }
+//'SELECT * FROM member INNER JOIN borrowing ON member.id = borrowing.member_id_id'
+
+    public function findExpiredBorrowingsByMember(){
+
+        $result =  $this->createQueryBuilder('xpm')
+            ->select('xpm')
+            //Inner join n'est pas
+            //->innerJoin(
+            //    'xpm.memberId',
+            //    'm'
+            //)
+            ->andwhere('xpm.expectedReturnDate < CURRENT_DATE()')
+            ->andWhere('xpm.effectiveReturnDate IS NULL')
+            ->orderBy('xpm.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+
     }
 
     // /**

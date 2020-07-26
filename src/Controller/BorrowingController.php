@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Borrowing;
 use App\Form\BorrowingType;
 use App\Repository\BorrowingRepository;
-use App\Service\MessageBorrowing;
+use App\Service\RelaunchManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,18 +19,38 @@ class BorrowingController extends AbstractController
 
     /**
      * @Route("/eb", name="expectedBorrowings", methods={"GET"})
-     * @param BorrowingRepository $borrowingRepository
-     * @param MessageBorrowing $expiredBorrowings
+     * @param BorrowingRepository $borrowing
+     * @param RelaunchManager $relaunch
+     * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function expiredBorrowings(BorrowingRepository $borrowingRepository, MessageBorrowing $expiredBorrowings): Response
+    public function expiredBorrowings(BorrowingRepository $borrowing, RelaunchManager $relaunch, \Swift_Mailer $mailer): Response
     {
         //$message = $expiredBorrowings->getBorrowingsMessage();
         //$this->addFlash('alert', $message);
+        $queryResult = $borrowing->findExpiredBorrowingsByMember();
+
+        $date = new \DateTime;
+        $ds= $date->format('Y-m-d H:i:s');
+        echo $ds;
+
+        foreach($queryResult as $qr){
+
+            $interval = date_diff($date, $qr->getExpectedReturnDate());
+            $dss = floor(intval($interval->format('%a'))/7);
+            echo $dss.' '.$qr->getId();
+            echo '</br>';
+            $tab[] = $dss;
+        }
+
+
+
 
         return $this->render('borrowing/expiredBorrowings.html.twig', [
-            'expiredBorrowings' => $borrowingRepository->findExpiredBorrowings(),
-            'expiredMessage'=> $expiredBorrowings->getBorrowingsMessage()
+            'expiredBorrowings' => $borrowing->findExpiredBorrowingsByMember(),
+            'expiredMessage'=> $relaunch->getBorrowingsMessage(),
+            'now' => $date,
+            'diff' => $tab
         ]);
     }
 
@@ -49,7 +69,7 @@ class BorrowingController extends AbstractController
     /**
      * @Route("/new", name="borrowing_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, RelaunchManager $relaunch, BorrowingRepository $borrowingRepository): Response
     {
         $borrowing = new Borrowing();
         $form = $this->createForm(BorrowingType::class, $borrowing);
@@ -59,6 +79,8 @@ class BorrowingController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($borrowing);
             $entityManager->flush();
+
+            $relaunch->notify($borrowingRepository);
 
             $this->addFlash(
                 'success',
@@ -135,8 +157,4 @@ class BorrowingController extends AbstractController
 
         return $this->redirectToRoute('borrowing_index');
     }
-
-
-
-
 }

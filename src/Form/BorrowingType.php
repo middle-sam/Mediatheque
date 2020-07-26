@@ -21,7 +21,7 @@ class BorrowingType extends AbstractType
             ->add('memberId', EntityType::class, [
 
                 'class' => Member::class,
-                'choice_label' => 'firstName',
+                'choice_label' => 'lastName',
                 'label' => 'Nom de l\'adhérent'
 
 

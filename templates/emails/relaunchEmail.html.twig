@@ -1,0 +1,12 @@
+{# templates/emails/registration.html.twig #}
+<h3>Email de relance</h3>
+
+
+
+Bonjour {{ member.memberId.firstName }} {{ member.memberId.lastName }}!
+Votre emprunt n° {{ member.id }} est expiré depuis le {{ member.expectedReturnDate | date('d-m-Y')}}.
+Ceci est la {#{ message.key }}, {{ message.value }#} sans retour de votre part
+
+
+{#example, assuming you have a route named "login" #}
+
