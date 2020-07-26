@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\Documents;
 use Symfony\Component\Form\AbstractType;
+<<<<<<< HEAD
+=======
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+>>>>>>> 5e29f47ee188e1829596c77a72768098e0e83eae
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
