@@ -24,12 +24,13 @@ class RelaunchManager
         $this->renderer = $renderer;
     }
 
-    public function getBorrowingsMessage(/*Borrowing $borrowing*/)
+    public function getBorrowingsMessage()
     {
-        $messages =
-            'Première relance'//=> "N\'oubliez de nous retourner le document suivant :  dès que possible",
-            //'Seconde relance'=>  "Ceci est la seconde relance concernant le document suivant : ",
-            //'Troisième relance'=> "Ceci est la troisème et dernière relance concernant le document suivant : "
+        $messages = [
+            'première relance'=> "N\'oubliez de nous retourner l'emprunt n°   dès que possible",
+            'seconde relance'=>  "Ceci est la seconde relance concernant le document suivant : ",
+            'dernière relance'=> "Ceci est la troisème et dernière relance concernant le document suivant : "
+        ]
         ;
        // $index = array_rand($messages);
         return $messages;
@@ -45,7 +46,7 @@ class RelaunchManager
 
 
 
-        $customMessages = $this->getBorrowingsMessage($borrowingEntity);
+        $customMessages = $this->getBorrowingsMessage();
 
          $message = (new \Swift_Message('Hello Email'))
                 ->setFrom('sami.serbout@gmail.com')

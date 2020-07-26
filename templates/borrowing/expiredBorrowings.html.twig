@@ -15,7 +15,7 @@
             <th>StartDate</th>
             <th>ExpectedReturnDate</th>
             <th>EffectiveReturnDate</th>
-            <th>Message</th>
+            <th>Status</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -29,7 +29,7 @@
                 <td>{{ eb.expectedReturnDate ? eb.expectedReturnDate|date('d-m-Y') : '' }}</td>
                 <td>{{ now | date('d-m-Y')}}</td>
 
-                <td class="alert alert-danger">{{ expiredMessage }}</td>
+                <td class="alert {% if tab[eb.id] ==  'dernière relance' %} alert-danger {% elseif tab[eb.id] ==  'seconde relance' %} alert-warning {% else %} alert-success {% endif %}">{{ tab[eb.id] }}</td>
                 <td>
                     <a href="{{ path('borrowing_show', {'id': eb.id}) }}">show</a>
                     <a href="{{ path('borrowing_edit', {'id': eb.id}) }}">edit</a>

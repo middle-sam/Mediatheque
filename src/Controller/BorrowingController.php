@@ -17,6 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class BorrowingController extends AbstractController
 {
 
+
+
+
+
+
+
+
     /**
      * @Route("/eb", name="expectedBorrowings", methods={"GET"})
      * @param BorrowingRepository $borrowing
@@ -26,6 +33,8 @@ class BorrowingController extends AbstractController
      */
     public function expiredBorrowings(BorrowingRepository $borrowing, RelaunchManager $relaunch, \Swift_Mailer $mailer): Response
     {
+        //Utiliser $mailer pour l'envoi des mails
+
         //$message = $expiredBorrowings->getBorrowingsMessage();
         //$this->addFlash('alert', $message);
         $queryResult = $borrowing->findExpiredBorrowingsByMember();
@@ -33,25 +42,35 @@ class BorrowingController extends AbstractController
         $date = new \DateTime;
         $ds= $date->format('Y-m-d H:i:s');
         echo $ds;
+        //$interval = date_diff($date, $queryResult->getExpectedReturnDate());
 
-        foreach($queryResult as $qr){
+        $tab = [];
+        foreach ($queryResult as $qr) {
 
             $interval = date_diff($date, $qr->getExpectedReturnDate());
-            $dss = floor(intval($interval->format('%a'))/7);
-            echo $dss.' '.$qr->getId();
+            $dss = floor(intval($interval->format('%a')) / 7);
+            echo $dss . ' ' . $qr->getId();
             echo '</br>';
-            $tab[] = $dss;
+
+            if($dss<2){
+                $tab[$qr->getId()] = 'première relance';
+            }elseif($dss > 2 && $dss<4){
+                $tab[$qr->getId()] = 'seconde relance';
+            }else{
+                $tab[$qr->getId()] = 'dernière relance';
+            }
         }
-
-
-
 
         return $this->render('borrowing/expiredBorrowings.html.twig', [
             'expiredBorrowings' => $borrowing->findExpiredBorrowingsByMember(),
-            'expiredMessage'=> $relaunch->getBorrowingsMessage(),
             'now' => $date,
-            'diff' => $tab
+            'expiredMessage'=> $relaunch->getBorrowingsMessage(),
+            'tab' => $tab
         ]);
+
+
+
+
     }
 
     /**
