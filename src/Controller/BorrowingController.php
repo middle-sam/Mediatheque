@@ -18,13 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class BorrowingController extends AbstractController{
 
     /**
-     * @Route("/eb", name="expectedBorrowings", methods={"GET"})
+     * @Route("/expiredBorrowings", name="expectedBorrowings", methods={"GET"})
      * @param BorrowingRepository $expiredBorrowings
      * @param RelaunchManager $relaunch
      * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function expiredBorrowings(BorrowingRepository $expiredBorrowings, RelaunchManager $relaunch): Response
+    public function expectedBorrowings(BorrowingRepository $expiredBorrowings, RelaunchManager $relaunch): Response
     {
         //Utiliser $mailer pour l'envoi des mails
 

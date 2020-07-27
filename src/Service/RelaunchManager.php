@@ -32,18 +32,11 @@ class RelaunchManager
            'dernière relance'=> 'Ceci est la troisème et dernière relance, sans retour de votre part dans un délai de 24h.... '
        ]
        ;
-       //$index = array_rand($messages);
        return $messages;
     }
 
     public function notify(Borrowing $borrowing, BorrowingRepository $expiredBorrowings)
     {
-        //$erd = $borrowingEntity->getExpectedReturnDate();
-        //$borrowing = new Borrowing;
-        //$currentDate = new \DateTime();
-        //$expectedReturnDate= $borrowingEntity->getExpectedReturnDate();
-        //$interval = $currentDate->diff($expectedReturnDate);
-
         $queryResult = $expiredBorrowings->findExpiredBorrowingsByMember();
         $date = new \DateTime;
         $messages = [];
@@ -78,39 +71,7 @@ class RelaunchManager
         }
         $this->mailer->send($message);
 
-
-
-
-
-
         //return $this->render(...);
     }
 
-}
-
-class SiteUpdateManager
-{
-    private $messageGenerator;
-    private $mailer;
-
-    public function __construct(RelaunchManager $messageGenerator, MailerInterface $mailer)
-    {
-        $this->messageGenerator = $messageGenerator;
-        $this->mailer = $mailer;
-    }
-
-    public function notifyOfSiteUpdate()
-    {
-        $happyMessage = $this->messageGenerator->getHappyMessage();
-
-        $email = (new Email())
-            ->from('admin@example.com')
-            ->to('manager@example.com')
-            ->subject('Site update just happened!')
-            ->text('Someone just updated the site. We told them: '.$happyMessage);
-
-        $this->mailer->send($email);
-
-        // ...
-    }
 }
