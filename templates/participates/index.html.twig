@@ -1,4 +1,5 @@
-{% extends 'base.html.twig' %}
+{% extends 'back_office/index.html.twig' %}
+
 
 {% block title %}Participates index{% endblock %}
 
@@ -10,6 +11,8 @@
             <tr>
                 <th>Id</th>
                 <th>Places</th>
+                <th>Meetup</th>
+                <th>Réservations</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,6 +21,9 @@
             <tr>
                 <td>{{ participate.id }}</td>
                 <td>{{ participate.places }}</td>
+                <td>{{ participate.meetUpId.creatorId.firstName}} {{ participate.meetUpId.creatorId.lastName}}</td>
+                <td>{{ participate.places }}</td>
+                <td>{#{ sumOfPlacesByMeetup | sumOfPlacesByMeetup }#}</td>
                 <td>
                     <a href="{{ path('participates_show', {'id': participate.id}) }}">show</a>
                     <a href="{{ path('participates_edit', {'id': participate.id}) }}">edit</a>
@@ -30,6 +36,10 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('participates_new') }}">Create new</a>
+    <div class="row justify-content-between">
+        <div class="pagination">
+            {{ knp_pagination_render(participates) }}
+        </div>
+        <a href="{{ path('participates_new') }}" class="alert alert-success">Create new</a>
+    </div>
 {% endblock %}

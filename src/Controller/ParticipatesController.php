@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Participates;
 use App\Form\ParticipatesType;
 use App\Repository\ParticipatesRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,16 +18,28 @@ class ParticipatesController extends AbstractController
 {
     /**
      * @Route("/", name="participates_index", methods={"GET"})
+     * @param ParticipatesRepository $participatesRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @param Participates $participates
+     * @return Response
      */
-    public function index(ParticipatesRepository $participatesRepository): Response
+    public function index(ParticipatesRepository $participatesRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $allParticipates = $paginator->paginate($participatesRepository->findAllParticipates(),
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('participates/index.html.twig', [
-            'participates' => $participatesRepository->findAll(),
+            'participates' => $allParticipates,
+            'sumofplaces' => $participatesRepository->sumOfPlacesByMeetup(12)
         ]);
     }
 
     /**
      * @Route("/new", name="participates_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {

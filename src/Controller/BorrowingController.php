@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BorrowingController extends AbstractController{
 
     /**
-     * @Route("/expiredBorrowings", name="expectedBorrowings", methods={"GET"})
+     * @Route("/eb", name="expiredBorrowings", methods={"GET"})
      * @param BorrowingRepository $expiredBorrowings
      * @param RelaunchManager $relaunch
      * @param \Swift_Mailer $mailer
@@ -48,14 +48,12 @@ class BorrowingController extends AbstractController{
                 $tab[$qr->getId()] = 'dernière relance';
             }
         }
-        var_dump($tab);
         /**
          * Envoi des mails aux membres dont les emprunts ont expiré
          */
         foreach ($queryResult as $qr) {
             $relaunch->notify($qr,$expiredBorrowings);
         }
-
 
         /**
          * Rendu de la vue
@@ -126,7 +124,7 @@ class BorrowingController extends AbstractController{
 
 
     /**
-     * @Route("/{id}", name="borrowing_show", methods={"GET"})
+     * @Route("/{id}", name="borrowing_show", methods={"GET"}, requirements= {"id"="\d+"})
      */
     public function show(Borrowing $borrowing): Response
     {
@@ -167,7 +165,7 @@ class BorrowingController extends AbstractController{
     }
 
     /**
-     * @Route("/{id}", name="borrowing_delete", methods={"DELETE"})
+     * @Route("/{id}", name="borrowing_delete", methods={"DELETE"}, requirements= {"id"="\d+"})
      */
     public function delete(Request $request, Borrowing $borrowing): Response
     {

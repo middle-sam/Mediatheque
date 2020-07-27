@@ -3,7 +3,6 @@ namespace App\Service;
 
 use App\Entity\Borrowing;
 use App\Repository\BorrowingRepository;
-use Symfony\Component\Mailer\MailerInterface;
 use Twig\Environment;
 
 class RelaunchManager
@@ -75,3 +74,4 @@ class RelaunchManager
     }
 
 }
+
