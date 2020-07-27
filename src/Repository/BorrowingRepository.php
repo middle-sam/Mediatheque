@@ -3,6 +3,7 @@
 namespace App\Repository;
 use App\Entity\Borrowing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,7 +19,15 @@ class BorrowingRepository extends ServiceEntityRepository
         parent::__construct($registry, Borrowing::class);
     }
 
+    public function findIndex(): Query
+    {
 
+        return  $this->createQueryBuilder('fi')
+            ->select('fi')
+            ->orderBy('fi.id', 'ASC')
+            ->getQuery();
+
+    }
 
 
     /**

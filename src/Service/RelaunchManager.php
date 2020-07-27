@@ -76,7 +76,6 @@ class RelaunchManager
                     );
 
         }
-
         $this->mailer->send($message);
 
 

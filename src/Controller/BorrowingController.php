@@ -6,6 +6,7 @@ use App\Entity\Borrowing;
 use App\Form\BorrowingType;
 use App\Repository\BorrowingRepository;
 use App\Service\RelaunchManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,7 +48,7 @@ class BorrowingController extends AbstractController{
                 $tab[$qr->getId()] = 'dernière relance';
             }
         }
-
+        var_dump($tab);
         /**
          * Envoi des mails aux membres dont les emprunts ont expiré
          */
@@ -70,12 +71,18 @@ class BorrowingController extends AbstractController{
     /**
      * @Route("/", name="borrowing_index", methods={"GET"})
      * @param BorrowingRepository $borrowingRepository
+     * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function index(BorrowingRepository $borrowingRepository): Response
+    public function index(BorrowingRepository $borrowingRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $allBorrowings = $paginator->paginate($borrowingRepository->findIndex(),
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('borrowing/index.html.twig', [
-            'borrowings' => $borrowingRepository->findAll(),
+            'borrowings' => $allBorrowings,
         ]);
     }
 
