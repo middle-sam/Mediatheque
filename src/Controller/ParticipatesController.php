@@ -30,9 +30,22 @@ class ParticipatesController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
+
+        foreach ($participatesRepository->sumOfPlacesByMeetup(12) as $pr){
+
+            var_dump($pr);
+        }
+
+
+
+
         return $this->render('participates/index.html.twig', [
             'participates' => $allParticipates,
-            'sumofplaces' => $participatesRepository->sumOfPlacesByMeetup(12)
+            /**
+             * le résultat de sumofplaces a été injecyé dans la vue par le biais du filtre sumOfPlacesByMeetup
+             * cela permet de contourner simplement le problème de l'injection de plusieurs variables dans une même boucle for du template
+             */
+            //'sumofplaces' => $participatesRepository->sumOfPlacesByMeetup(12)
         ]);
     }
 

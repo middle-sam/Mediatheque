@@ -9,8 +9,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Places</th>
+                <th>ParticipatesId</th>
+                <th>MeetupId</th>
                 <th>Meetup</th>
                 <th>Réservations</th>
                 <th>actions</th>
@@ -20,10 +20,9 @@
         {% for participate in participates %}
             <tr>
                 <td>{{ participate.id }}</td>
-                <td>{{ participate.places }}</td>
+                <td>{{ participate.meetUpId.id }}</td>
                 <td>{{ participate.meetUpId.creatorId.firstName}} {{ participate.meetUpId.creatorId.lastName}}</td>
-                <td>{{ participate.places }}</td>
-                <td>{#{ sumOfPlacesByMeetup | sumOfPlacesByMeetup }#}</td>
+                <td>{{ participate.meetUpId | sumOfPlacesByMeetup }}</td>
                 <td>
                     <a href="{{ path('participates_show', {'id': participate.id}) }}">show</a>
                     <a href="{{ path('participates_edit', {'id': participate.id}) }}">edit</a>
