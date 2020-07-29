@@ -1,7 +1,22 @@
 security:
+    #enable_authenticator_manager: true
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    role_hierarchy:
+        ROLE_LIBRARIAN: ROLE_USER
+        ROLE_ADMIN: ROLE_LIBRARIAN
+        ROLE_SUPERADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -9,15 +24,20 @@ security:
         main:
             anonymous: true
             lazy: true
-            provider: users_in_memory
-
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
+            provider: app_user_provider
+            form_login:
+                login_path: login
+                check_path: login_check
+                username_parameter: _email
+                password_parameter: _password
+                default_target_path: /
+                use_referer: true
+            logout:
+                path: app_logout
+            guard:
+                authenticators:
+                    - App\Security\MediathekAuthenticator
+   # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }

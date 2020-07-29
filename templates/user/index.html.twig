@@ -36,6 +36,10 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
+    <div class="row justify-content-between">
+        <div class="pagination">
+            {{ knp_pagination_render(users) }}
+        </div>
+        <a href="{{ path('user_new') }}" class="alert alert-success">Create new</a>
+    </div>
 {% endblock %}

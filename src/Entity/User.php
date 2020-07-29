@@ -6,6 +6,8 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -14,8 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"user" = "User", "employee" = "Employee", "member" = "Member"})
+ * @UniqueEntity(fields = {"email"}, message = "L'identifiant que vous avez indiqué est déja utilisé!")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -30,9 +33,11 @@ class User
     protected $pseudo;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     * @Assert\Length(min="8", minMessage="Le mot de passe doit contenir au moins caractères!")
      */
-    protected $password;
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -49,9 +54,21 @@ class User
      */
     protected $participatesId;
 
+    /**
+     * @ORM\Column(type="string", length=180)
+     * @Assert\Length(min=8, minMessage="Le mote de passe doit faire au minimum 8 caractères")
+     */
+    protected $email;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="name")
+     */
+    private $roles;
+
     public function __construct()
     {
         $this->participatesId = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,18 +84,6 @@ class User
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }
@@ -146,4 +151,98 @@ class User
 
 
     }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): UserInterface
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->pseudo;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+            $role->addName($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+            $role->removeName($this);
+        }
+
+        return $this;
+    }
+
 }

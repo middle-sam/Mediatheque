@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Employee;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,11 +14,12 @@ class EmployeeType extends AbstractType
     {
         $builder
             ->add('pseudo')
-            ->add('password')
+            ->add('email')
+            ->add('password', PasswordType::class)
             ->add('firstName')
             ->add('lastName')
             ->add('phoneNumber')
-            ->add('email')
+
         ;
     }
 

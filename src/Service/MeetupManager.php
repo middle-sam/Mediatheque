@@ -2,7 +2,6 @@
 namespace App\Service;
 
 use App\Entity\MeetUp;
-use App\Entity\Participates;
 use App\Repository\ParticipatesRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -11,7 +10,6 @@ class MeetupManager extends AbstractExtension
 {
 
 
-    public $meetUpId;
     public $participatesRepository;
 
     //$sumByMeetUp = new \Twig\Environment($loader);
@@ -24,15 +22,14 @@ class MeetupManager extends AbstractExtension
 
     public function getFilters()
     {
-        //$queryResult = $this->participatesRepository->sumOfPlacesByMeetup(12);
         return [
             new TwigFilter('sumOfPlacesByMeetup', [$this, 'formatSumOfPlaces']),
         ];
     }
 
-    public function formatSumOfPlaces(MeetUp $meetUpID){
+    public function formatSumOfPlaces(MeetUp $meetUp){
 
-        return $this->participatesRepository->sumOfPlacesByMeetup($meetUpID)[0][1];
+        return $this->participatesRepository->sumOfPlacesByMeetup($meetUp)[0][1];
 
     }
 

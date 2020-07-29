@@ -40,6 +40,11 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="row justify-content-between">
+        <div class="pagination">
+            {{ knp_pagination_render(employees) }}
+        </div>
+        <a href="{{ path('employee_new') }}" class="alert alert-success">Create new</a>
+    </div>
 
-    <a href="{{ path('employee_new') }}">Create new</a>
 {% endblock %}

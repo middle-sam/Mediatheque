@@ -21,22 +21,14 @@ class ParticipatesController extends AbstractController
      * @param ParticipatesRepository $participatesRepository
      * @param PaginatorInterface $paginator
      * @param Request $request
-     * @param Participates $participates
      * @return Response
      */
     public function index(ParticipatesRepository $participatesRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $allParticipates = $paginator->paginate($participatesRepository->findAllParticipates(),
+        $allParticipates = $paginator->paginate($participatesRepository->findAll(),
             $request->query->getInt('page', 1),
             10
         );
-
-        foreach ($participatesRepository->sumOfPlacesByMeetup(12) as $pr){
-
-            var_dump($pr);
-        }
-
-
 
 
         return $this->render('participates/index.html.twig', [

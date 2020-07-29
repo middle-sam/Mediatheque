@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Member;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,10 +14,11 @@ class MemberType extends AbstractType
     {
         $builder
             ->add('pseudo')
+            ->add('email')
             ->add('password')
             ->add('firstName')
             ->add('lastName')
-            ->add('membershipDate')
+            ->add('membershipDate', DateType::class, ['html5' => true])
         ;
     }
 

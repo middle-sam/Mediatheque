@@ -6,6 +6,7 @@ use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -25,11 +26,6 @@ class Employee extends User
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $phoneNumber;
-
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $email;
 
     /**
      * @ORM\OneToMany(targetEntity=Maintenance::class, mappedBy="employeeId")
@@ -60,18 +56,6 @@ class Employee extends User
     public function setPhoneNumber(?string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): self
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -137,17 +121,9 @@ class Employee extends User
 
         return $this;
     }
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->email;
+        return $this->maintenanceId;
     }
 
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('email', new Assert\Email([
-            'message' => 'The email "{{ value }}" is not a valid email.',
-        ]));
-        $metadata->addPropertyConstraint('email', new Assert\NotNull());
-
-    }
 }
