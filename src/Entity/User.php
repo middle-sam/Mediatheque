@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"user" = "User", "employee" = "Employee", "member" = "Member"})
- * @UniqueEntity(fields = {"email"}, message = "L'identifiant que vous avez indiqué est déja utilisé!")
+ * @UniqueEntity(fields = {"email", "pseudo"}, message = "L'identifiant que vous avez indiqué est déja utilisé!")
  */
 class User implements UserInterface
 {
@@ -61,9 +61,9 @@ class User implements UserInterface
     protected $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="name")
+     * @ORM\ManyToMany(targetEntity=Role::class, inversedBy="users", cascade={"persist"})
      */
-    private $roles;
+    protected $roles;
 
     public function __construct()
     {
@@ -177,21 +177,8 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
-    }
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
 
     /**
      * @see UserInterface
@@ -227,19 +214,85 @@ class User implements UserInterface
 
     public function addRole(Role $role): self
     {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-            $role->addName($this);
-        }
 
+        if(is_null($this->roles))
+        {
+            $this->roles = new ArrayCollection();
+            //var_dump(get_class($this->roles));
+        }
+        if($this->roles instanceof ArrayCollection) {
+            if (!$this->roles->contains($role)) {
+                //var_dump($role->getLabel());
+                $this->roles[] = $role;
+                //var_dump(count($this->roles));
+                $role->addUsers($this);
+            }
+        }
         return $this;
+    }
+
+    //public function addRole(Role $role): self
+    //{
+    //   // if (!$this->roles->contains($role)) {
+    //   //     $this->roles[] = $role;
+    //   //     $role->addUsers($this);
+    //   // }
+    //    ////
+    //    if(is_null($this->roles)){
+    //        $this->roles =new ArrayCollection();
+    //        var_dump(get_class($this->roles));
+    //    }
+    //    if(is_array($this->roles)) {
+    //        if (!$this->roles->contains($role)) {
+    //            $this->roles[] = $role;
+    //            $role->addUsers($this);
+    //        }
+    //    }
+    //    return $this;
+    //}
+
+    //public function getRoles(): array
+    //{
+    //    $roles = $this->roles;
+    //    // guarantee every user at least has ROLE_USER
+    //    //$roles[] = ;
+//
+    //    $arrayRoles = [];
+//
+    //    if($roles instanceof ArrayCollection){
+    //        foreach ( $roles as $r ){
+//
+    //            $arrayRoles[] = $r->getLabel();
+//
+    //        }
+    //    }
+    //    return $arrayRoles;
+    //}
+
+    public function getRoles()
+    {
+        $roles = $this->roles;
+
+        $roleName = [];
+        if($roles instanceof ArrayCollection) {
+            foreach($roles as $role){
+                $roleLabel[] = $role->getLabel();
+            }
+        };
+
+        // $roleName = array_map(function($item){return var_dump($item->name);},$roles);
+
+
+        // guarantee every user at least has ROLE_USER
+
+        return $roleName;
     }
 
     public function removeRole(Role $role): self
     {
         if ($this->roles->contains($role)) {
             $this->roles->removeElement($role);
-            $role->removeName($this);
+            $role->removeUsers($this);
         }
 
         return $this;

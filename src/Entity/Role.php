@@ -20,9 +20,9 @@ class Role
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="roles")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="roles")
      */
-    private $name;
+    protected $users;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -31,7 +31,7 @@ class Role
 
     public function __construct()
     {
-        $this->name = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -42,24 +42,24 @@ class Role
     /**
      * @return Collection|User[]
      */
-    public function getName(): Collection
+    public function getUsers(): Collection
     {
-        return $this->name;
+        return $this->users;
     }
 
-    public function addName(User $name): self
+    public function addUsers(User $users): self
     {
-        if (!$this->name->contains($name)) {
-            $this->name[] = $name;
+        if (!$this->users->contains($users)) {
+            $this->users[] = $users;
         }
 
         return $this;
     }
 
-    public function removeName(User $name): self
+    public function removeUsers(User $users): self
     {
-        if ($this->name->contains($name)) {
-            $this->name->removeElement($name);
+        if ($this->users->contains($users)) {
+            $this->users->removeElement($users);
         }
 
         return $this;
@@ -75,5 +75,11 @@ class Role
         $this->label = $label;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->label;
+
     }
 }

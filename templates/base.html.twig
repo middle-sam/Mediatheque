@@ -71,6 +71,13 @@
                     <a class="nav-link text-info" href="{{ path('participates_index') }}">Participates</a>
                 </li>
             </ul>
+            <ul class="navbar-nav mr-auto">
+                {% if app.user%}
+                <li><a class="nav-link text-info" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                {% else %}
+                <li><a class="nav-link text-info" href="{{ path('app_login') }}">Connexion</a></li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
         {% block body %}{% endblock %}

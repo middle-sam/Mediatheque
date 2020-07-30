@@ -41,12 +41,16 @@ class EmployeeController extends AbstractController
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
+        if(!$this->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('front_app_home');
+        }
         $employee = new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            //var_dump($employee->getRoles());die();
             $encoded = $encoder->encodePassword($employee, $employee->getPassword());
             $employee->setPassword($encoded);
 

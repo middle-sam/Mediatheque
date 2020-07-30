@@ -63,6 +63,7 @@ class MediathekAuthenticator extends AbstractFormLoginAuthenticator implements P
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+        //var_dump($credentials); die();
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
@@ -77,13 +78,14 @@ class MediathekAuthenticator extends AbstractFormLoginAuthenticator implements P
         return $user;
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
-    {
+    public function checkCredentials($credentials, UserInterface $user){
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param $credentials
+     * @return string|null
      */
     public function getPassword($credentials): ?string
     {
@@ -92,9 +94,13 @@ class MediathekAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        //$url =$this->urlGenerator->generate('back_office');
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
+        return new RedirectResponse($this->urlGenerator->generate('back_office'));
+
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
