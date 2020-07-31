@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Newspaper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,6 +19,9 @@ class NewspaperType extends AbstractType
             ->add('codeOeuvre')
             ->add('periodicity')
             ->add('subscriptionDate')
+            ->add('img', FileType::class, [
+                'required' => false
+            ])
         ;
     }
 

@@ -14,6 +14,7 @@
                 <th>Format</th>
                 <th>CodeOeuvre</th>
                 <th>Pages</th>
+                <th>Image</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +25,9 @@
                 <td>{{ book.cote }}</td>
                 <td>{{ book.titre }}</td>
                 <td>{{ book.format }}</td>
+                <td>{{ book.codeOeuvre }}</td>
+                <td> {{ book.pages }}</td>
+                <td><img src="{{ book.img }}" alt=""></td>
                 <td>
                     <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
                     <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>

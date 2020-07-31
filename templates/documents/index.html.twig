@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-{% extends 'base.html.twig' %}
-=======
-{% extends 'back_office/index.html.twig' %}
->>>>>>> 5e29f47ee188e1829596c77a72768098e0e83eae
 
+{% extends 'back_office/index.html.twig' %}
 {% block title %}Documents index{% endblock %}
 
 {% block body %}
@@ -41,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('documents_new') }}">Create new</a>
+    <a href="{{ path('documents_new') }}" class="btn btn-success">Create new</a>
 {% endblock %}

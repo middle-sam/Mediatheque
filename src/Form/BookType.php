@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Book;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,15 +16,19 @@ class BookType extends AbstractType
         $builder
             ->add('cote')
             ->add('titre')
-            ->add('format',  ChoiceType::class, [
+            ->add('format', ChoiceType::class, [
 
-                'choices'  => [ 'carré',
-                    'livre de poche',
-                    'grand format',
-                    'standard'
+                'choices'  => [
+                    'carré'=>'carré',
+                    'livre de poche'=>'livre de poche',
+                    'grand format'=>'grand format',
+                    'standard'=>'standard'
                 ]])
             ->add('codeOeuvre')
             ->add('pages')
+            ->add('img', FileType::class, [
+                'required' => false
+            ])
         ;
     }
 

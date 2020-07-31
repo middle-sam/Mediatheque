@@ -6,14 +6,18 @@ use App\Repository\DocumentsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentsRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"documents" = "Documents", "dvd" = "Dvd", "ebook" = "Ebook", "newspaper" = "Newspaper", "book" = "Book", "cd" = "Cd"})
+ * @Vich\Uploadable
  */
 class Documents
 {
@@ -53,6 +57,20 @@ class Documents
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $img;
+
+    /**
+     * @Vich\UploadableField(mapping="documents_images", fileNameProperty="img", size="imageSize")
+     * @var File|null
+     */
+    protected $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTimeInterface|null
+     */
+    protected $updatedAt;
+
 
     public function __construct()
     {
@@ -166,4 +184,44 @@ class Documents
 
         return $this;
     }
+
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+
+    /**
+     * @param File|null $imageFile
+     * @return Documents
+     */
+    public function setImageFile(?File $imageFile): Documents
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $updatedAt
+     */
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): ?\DateTimeInterface
+    {
+        $this->updatedAt = new \DateTime('now');
+    }
+
 }

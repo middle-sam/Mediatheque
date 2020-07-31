@@ -41,9 +41,9 @@ class EmployeeController extends AbstractController
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
-        if(!$this->isGranted('ROLE_ADMIN')){
-            return $this->redirectToRoute('front_app_home');
-        }
+        //if(!$this->isGranted('ROLE_ADMIN')){
+        //    return $this->redirectToRoute('front_app_home');
+        //}
         $employee = new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);

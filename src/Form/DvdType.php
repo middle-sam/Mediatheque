@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Dvd;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,6 +18,9 @@ class DvdType extends AbstractType
             ->add('format')
             ->add('codeOeuvre')
             ->add('duration')
+            ->add('img', FileType::class, [
+                'required' => false
+            ])
         ;
     }
 

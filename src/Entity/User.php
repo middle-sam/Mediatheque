@@ -218,13 +218,10 @@ class User implements UserInterface
         if(is_null($this->roles))
         {
             $this->roles = new ArrayCollection();
-            //var_dump(get_class($this->roles));
         }
         if($this->roles instanceof ArrayCollection) {
             if (!$this->roles->contains($role)) {
-                //var_dump($role->getLabel());
                 $this->roles[] = $role;
-                //var_dump(count($this->roles));
                 $role->addUsers($this);
             }
         }
@@ -279,11 +276,6 @@ class User implements UserInterface
                 $roleLabel[] = $role->getLabel();
             }
         };
-
-        // $roleName = array_map(function($item){return var_dump($item->name);},$roles);
-
-
-        // guarantee every user at least has ROLE_USER
 
         return $roleName;
     }
