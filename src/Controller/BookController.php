@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,24 +18,42 @@ class BookController extends AbstractController
 {
     /**
      * @Route("/", name="book_index", methods={"GET"})
+     * @param BookRepository $bookRepository
+     * @return Response
      */
-    public function index(BookRepository $bookRepository): Response
+    public function index(BookRepository $bookRepository, PaginatorInterface $paginator, Request $request): Response
     {
+
+        $Allbooks = $paginator->paginate($bookRepository->findAll(),
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('book/index.html.twig', [
-            'books' => $bookRepository->findAll(),
+            'books' => $Allbooks,
         ]);
     }
 
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param Paginator $paginator
+     * @param BookRepository $bookRepository
+     * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, PaginatorInterface $paginator, BookRepository $bookRepository): Response
     {
+
+        $allBooks = $paginator->paginate($bookRepository->findAll(),
+            $request->query->getInt('page', 1),
+            10
+        );
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //echo $book->getUpdatedAt()->format('d-m-Y');die();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
             $entityManager->flush();
@@ -48,7 +67,7 @@ class BookController extends AbstractController
         }
 
         return $this->render('book/new.html.twig', [
-            'book' => $book,
+            'books' => $allBooks,
             'form' => $form->createView(),
         ]);
     }

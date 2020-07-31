@@ -27,8 +27,12 @@
                 <td>{{ book.format }}</td>
                 <td>{{ book.codeOeuvre }}</td>
                 <td> {{ book.pages }}</td>
-                <td><img src="{{ book.img }}" alt=""></td>
-                <td>
+                {% if book.id == 266 %}
+                <td><img src={{ "../../../public/images/documents/"~book.img }} alt=""></td>
+                {% else %}
+                    <td><img src="{{ book.img}}" alt=""></td>
+                {% endif %}
+                    <td>
                     <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
                     <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
                 </td>
@@ -40,6 +44,12 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="row justify-content-between">
+        <div class="pagination">
+            {{ knp_pagination_render(books) }}
+        </div>
+        <a href="{{ path('book_new') }}" class="btn btn-success">Create new</a>
+    </div>
 
-    <a href="{{ path('book_new') }}" class="btn btn-success">Create new</a>
+
 {% endblock %}

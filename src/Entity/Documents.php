@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DocumentsRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,21 +56,22 @@ class Documents
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string | null
      */
-    protected $img;
+    private $img;
 
     /**
-     * @Vich\UploadableField(mapping="documents_images", fileNameProperty="img", size="imageSize")
+     * @Vich\UploadableField(mapping="documents_images", fileNameProperty="img")
      * @var File|null
      */
-    protected $imageFile;
+    private $imageFile;
 
     /**
      * @ORM\Column(type="datetime")
      *
-     * @var \DateTimeInterface|null
+     * @var DateTimeInterface|null
      */
-    protected $updatedAt;
+    private $updatedAt;
 
 
     public function __construct()
@@ -196,32 +198,37 @@ class Documents
 
 
     /**
-     * @param File|null $imageFile
-     * @return Documents
+     * @param File|UploadedFile $imageFile
+     * @return void
      */
-    public function setImageFile(?File $imageFile): Documents
+    public function setImageFile(?File $imageFile): void
     {
         $this->imageFile = $imageFile;
-        if ($this->imageFile instanceof UploadedFile) {
-            $this->updatedAt = new \DateTime('now');
+        if(null !== $imageFile){
+            $this->updatedAt = new \DateTimeImmutable();
         }
-        return $this;
+        //if ($this->imageFile instanceof UploadedFile) {
+            //$this->updatedAt = new \DateTime('now');
+        //}
+        //return $this;
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param \DateTimeInterface|null $updatedAt
+     * @param DateTimeInterface|null $updatedAt
+     * @return DateTimeInterface|null
      */
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): ?\DateTimeInterface
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): ?DateTimeInterface
     {
-        $this->updatedAt = new \DateTime('now');
+        $this->updatedAt = $updatedAt;
+        return $updatedAt;
     }
 
 }

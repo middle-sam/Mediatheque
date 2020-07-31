@@ -26,7 +26,7 @@ class BookType extends AbstractType
                 ]])
             ->add('codeOeuvre')
             ->add('pages')
-            ->add('img', FileType::class, [
+            ->add('imageFile', FileType::class, [
                 'required' => false
             ])
         ;

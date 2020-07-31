@@ -28,7 +28,7 @@ class DocumentsType extends AbstractType
                 'standard'=>'standard'
             ]])
             ->add('codeOeuvre')
-            ->add('img', FileType::class, [
+            ->add('imageFile', FileType::class, [
                  'required' => false
             ])
         ;
