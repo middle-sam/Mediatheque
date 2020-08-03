@@ -30,10 +30,12 @@ security:
                 check_path: /login_check
                 username_parameter: _email
                 password_parameter: _password
-                default_target_path: front_app_home
+                #default_target_path: front_app_home
                 use_referer: true
+                csrf_token_generator: security.csrf.token_manager
             logout:
                 path: app_logout
+                target: home
             guard:
                 authenticators:
                     - App\Security\MediathekAuthenticator
@@ -48,6 +50,7 @@ security:
                 # following line to always enable it.
                 #always_remember_me: true
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         #- { path: ^/(employee|member|users), roles: ROLE_ADMIN}
+         #- { path: ^/(book|borrowing|creator|meet/up|is/involved/in|maintenance|participates), roles: ROLE_LIBRARIAN }
+
 

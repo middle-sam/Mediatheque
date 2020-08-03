@@ -13,6 +13,7 @@
                 <th>Password</th>
                 <th>FirstName</th>
                 <th>LastName</th>
+                <th>Roles</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +25,7 @@
                 <td>{{ user.email }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
+                <td>{#{ user.roles[0] }#}{{ dump(user) }}</td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>

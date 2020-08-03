@@ -40,6 +40,8 @@ class MemberController extends AbstractController
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
+        $this->denyAccessUnlessGranted('NEW', $this);
+
         $member = new Member();
         $form = $this->createForm(MemberType::class, $member);
         $form->handleRequest($request);
@@ -77,6 +79,8 @@ class MemberController extends AbstractController
      */
     public function edit(Request $request, Member $member): Response
     {
+        $this->denyAccessUnlessGranted('EDIT', $this);
+
         $form = $this->createForm(MemberType::class, $member);
         $form->handleRequest($request);
 
@@ -97,6 +101,8 @@ class MemberController extends AbstractController
      */
     public function delete(Request $request, Member $member): Response
     {
+        $this->denyAccessUnlessGranted('DELETE', $this);
+
         if ($this->isCsrfTokenValid('delete'.$member->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($member);

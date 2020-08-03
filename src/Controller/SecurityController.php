@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        //return new RedirectResponse($this->urlGenerator->generate('front_app_home'));
+        //return $this->redirectToRoute('back_office');
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

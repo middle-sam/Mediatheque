@@ -177,12 +177,6 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-
-
-
-    /**
-     * @see UserInterface
-     */
     public function getPassword(): string
     {
         return (string) $this->password;
@@ -273,7 +267,7 @@ class User implements UserInterface
         $roleName = [];
         if($roles instanceof ArrayCollection) {
             foreach($roles as $role){
-                $roleLabel[] = $role->getLabel();
+                $roleName[] = $role->getLabel();
             }
         };
 

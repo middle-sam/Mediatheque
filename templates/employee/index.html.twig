@@ -28,7 +28,9 @@
                 <td>{{ employee.email }}</td>
                 <td>
                     <a href="{{ path('employee_show', {'id': employee.id}) }}">show</a>
+                    {%  if is_granted('EDIT', employee) %}
                     <a href="{{ path('employee_edit', {'id': employee.id}) }}">edit</a>
+                    {%  endif %}
                 </td>
             </tr>
         {% else %}
@@ -42,7 +44,9 @@
         <div class="pagination">
             {{ knp_pagination_render(employees) }}
         </div>
+        {%  if is_granted('NEW', employees) %}
         <a href="{{ path('employee_new') }}" class="alert alert-success">Create new</a>
+        {%  endif %}
     </div>
 
 {% endblock %}

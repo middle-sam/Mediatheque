@@ -44,13 +44,14 @@ class EmployeeController extends AbstractController
         //if(!$this->isGranted('ROLE_ADMIN')){
         //    return $this->redirectToRoute('front_app_home');
         //}
+        $this->denyAccessUnlessGranted('NEW', $this);
+
         $employee = new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //var_dump($employee->getRoles());die();
             $encoded = $encoder->encodePassword($employee, $employee->getPassword());
             $employee->setPassword($encoded);
 
@@ -83,6 +84,8 @@ class EmployeeController extends AbstractController
      */
     public function edit(Request $request, Employee $employee): Response
     {
+        $this->denyAccessUnlessGranted('EDIT', $this);
+
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
 
@@ -103,6 +106,7 @@ class EmployeeController extends AbstractController
      */
     public function delete(Request $request, Employee $employee): Response
     {
+        $this->denyAccessUnlessGranted('DELETE', $this);
         if ($this->isCsrfTokenValid('delete'.$employee->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($employee);
