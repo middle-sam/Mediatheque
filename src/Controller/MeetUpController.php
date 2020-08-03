@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\EventListener\MeetUpListener;
 
 /**
  * @Route("/meet/up")
@@ -38,6 +39,15 @@ class MeetUpController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($meetUp);
             $entityManager->flush();
+
+            // the order is somehow created or retrieved
+            $meetUp = new MeetUp();
+            $listener = new MeetUpListener();
+            $dispatcher->addListener('meetup.created', [$listener, 'onFooAction']);
+
+// creates the OrderPlacedEvent and dispatches it
+            $event = new MeetUpListener($meetUp);
+            $dispatcher->dispatch($event, MeetUpListener::NAME);
 
             return $this->redirectToRoute('meet_up_index');
         }

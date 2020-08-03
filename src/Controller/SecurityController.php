@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class SecurityController extends AbstractController
 {
@@ -15,11 +17,18 @@ class SecurityController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, LoggerInterface $logger): Response
     {
+
          //if ($this->getUser()) {
          //    return $this->redirectToRoute('back_office');
          //}
+
+        $user = $this->getUser();
+        if($user){
+            $logger->info('Connexion: '.$user->getEmail().":".$user->getPassword());
+        }
+
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

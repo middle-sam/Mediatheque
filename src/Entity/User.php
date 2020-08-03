@@ -265,11 +265,13 @@ class User implements UserInterface
         $roles = $this->roles;
 
         $roleName = [];
-        if($roles instanceof ArrayCollection) {
+
+        if(is_iterable($roles)){
+
             foreach($roles as $role){
                 $roleName[] = $role->getLabel();
             }
-        };
+        }
 
         return $roleName;
     }

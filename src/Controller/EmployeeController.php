@@ -44,7 +44,7 @@ class EmployeeController extends AbstractController
         //if(!$this->isGranted('ROLE_ADMIN')){
         //    return $this->redirectToRoute('front_app_home');
         //}
-        $this->denyAccessUnlessGranted('NEW', $this);
+        //$this->denyAccessUnlessGranted('NEW', $this);
 
         $employee = new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);

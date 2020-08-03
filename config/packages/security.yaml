@@ -30,7 +30,6 @@ security:
                 check_path: /login_check
                 username_parameter: _email
                 password_parameter: _password
-                #default_target_path: front_app_home
                 use_referer: true
                 csrf_token_generator: security.csrf.token_manager
             logout:

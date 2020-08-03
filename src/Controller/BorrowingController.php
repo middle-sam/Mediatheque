@@ -70,6 +70,7 @@ class BorrowingController extends AbstractController{
      * @Route("/", name="borrowing_index", methods={"GET"})
      * @param BorrowingRepository $borrowingRepository
      * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
     public function index(BorrowingRepository $borrowingRepository, PaginatorInterface $paginator, Request $request): Response
