@@ -47,7 +47,7 @@ class RelaunchManager
 
             if($diffInWeeks<2){
                 $messages[$qr->getId()] = $this->getBorrowingsMessage()['première relance'];
-            }elseif($diffInWeeks > 2 && $diffInWeeks<4){
+            }elseif($diffInWeeks >= 2 && $diffInWeeks <= 4){
                 $messages[$qr->getId()] = $this->getBorrowingsMessage()['seconde relance'];
             }else{
                 $messages[$qr->getId()] = $this->getBorrowingsMessage()['dernière relance'];

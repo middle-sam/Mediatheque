@@ -42,12 +42,13 @@ class BorrowingController extends AbstractController{
 
             if($diffInWeeks<2){
                 $tab[$qr->getId()] = 'première relance';
-            }elseif($diffInWeeks > 2 && $diffInWeeks<4){
+            }elseif($diffInWeeks >= 2 && $diffInWeeks <= 4){
                 $tab[$qr->getId()] = 'seconde relance';
             }else{
                 $tab[$qr->getId()] = 'dernière relance';
             }
         }
+
         /**
          * Envoi des mails aux membres dont les emprunts ont expiré
          */
@@ -62,7 +63,8 @@ class BorrowingController extends AbstractController{
             'expiredBorrowings' => $expiredBorrowings->findExpiredBorrowingsByMember(),
             'now' => $date,
             'expiredMessage'=> $relaunch->getBorrowingsMessage(),
-            'tab' => $tab
+            'tab' => $tab,
+            'retard' => $diffInWeeks
         ]);
     }
 
@@ -86,9 +88,12 @@ class BorrowingController extends AbstractController{
     }
 
 
-
     /**
      * @Route("/new", name="borrowing_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param RelaunchManager $relaunch
+     * @param BorrowingRepository $borrowingRepository
+     * @return Response
      */
     public function new(Request $request, RelaunchManager $relaunch, BorrowingRepository $borrowingRepository): Response
     {
@@ -101,7 +106,7 @@ class BorrowingController extends AbstractController{
             $entityManager->persist($borrowing);
             $entityManager->flush();
 
-            $relaunch->notify($borrowingRepository);
+            $relaunch->notify($borrowing, $borrowingRepository);
 
             $this->addFlash(
                 'success',

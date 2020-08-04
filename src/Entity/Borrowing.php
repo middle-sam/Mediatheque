@@ -64,7 +64,7 @@ class Borrowing
         return $this;
     }
 
-    public function getExpectedReturnDate(): ?\DateTimeInterface
+    public function getExpectedReturnDate(): ?\DateTime
     {
         return $this->expectedReturnDate;
     }

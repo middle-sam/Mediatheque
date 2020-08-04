@@ -222,44 +222,6 @@ class User implements UserInterface
         return $this;
     }
 
-    //public function addRole(Role $role): self
-    //{
-    //   // if (!$this->roles->contains($role)) {
-    //   //     $this->roles[] = $role;
-    //   //     $role->addUsers($this);
-    //   // }
-    //    ////
-    //    if(is_null($this->roles)){
-    //        $this->roles =new ArrayCollection();
-    //        var_dump(get_class($this->roles));
-    //    }
-    //    if(is_array($this->roles)) {
-    //        if (!$this->roles->contains($role)) {
-    //            $this->roles[] = $role;
-    //            $role->addUsers($this);
-    //        }
-    //    }
-    //    return $this;
-    //}
-
-    //public function getRoles(): array
-    //{
-    //    $roles = $this->roles;
-    //    // guarantee every user at least has ROLE_USER
-    //    //$roles[] = ;
-//
-    //    $arrayRoles = [];
-//
-    //    if($roles instanceof ArrayCollection){
-    //        foreach ( $roles as $r ){
-//
-    //            $arrayRoles[] = $r->getLabel();
-//
-    //        }
-    //    }
-    //    return $arrayRoles;
-    //}
-
     public function getRoles()
     {
         $roles = $this->roles;

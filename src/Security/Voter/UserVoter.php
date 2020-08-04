@@ -16,7 +16,7 @@ class  UserVoter extends Voter
             && $subject instanceof \App\Entity\User;
     }
 
-    protected function voteOnAttribute($attribute, $users, TokenInterface $token)
+    protected function voteOnAttribute($attribute,$user , TokenInterface $token)
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
@@ -24,16 +24,17 @@ class  UserVoter extends Voter
             return false;
         }
 
+
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'EDIT':
-                return  $user->getId() === 107;
+                return  $user->getId() == 107;
                 break;
             case 'DELETE':
-                return  $user->getId() === 107;
+                return  $user->getId() == 107;
                 break;
             case 'NEW' :
-                return  $user->getId() === 107;
+                return  $user->getId() == 107;
         }
 
         return false;

@@ -37,6 +37,7 @@ class EmployeeController extends AbstractController
      * @Route("/new", name="employee_new", methods={"GET","POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
+     * @param Employee $employee
      * @return Response
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
@@ -44,12 +45,13 @@ class EmployeeController extends AbstractController
         //if(!$this->isGranted('ROLE_ADMIN')){
         //    return $this->redirectToRoute('front_app_home');
         //}
-        //$this->denyAccessUnlessGranted('NEW', $this);
+        $empl = $this->getUser();
+        $this->denyAccessUnlessGranted('NEW', $empl);
+
 
         $employee = new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $encoded = $encoder->encodePassword($employee, $employee->getPassword());
@@ -84,7 +86,7 @@ class EmployeeController extends AbstractController
      */
     public function edit(Request $request, Employee $employee): Response
     {
-        $this->denyAccessUnlessGranted('EDIT', $this);
+        $this->denyAccessUnlessGranted('EDIT', $employee);
 
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
@@ -106,7 +108,7 @@ class EmployeeController extends AbstractController
      */
     public function delete(Request $request, Employee $employee): Response
     {
-        $this->denyAccessUnlessGranted('DELETE', $this);
+        $this->denyAccessUnlessGranted('DELETE', $employee);
         if ($this->isCsrfTokenValid('delete'.$employee->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($employee);

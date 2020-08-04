@@ -22,4 +22,4 @@ monolog:
             level:    debug
             type:     stream
             path:     '%kernel.logs_dir%/customEvent.log'
-            channels: [event]
+            channels: [app]

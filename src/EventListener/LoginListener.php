@@ -72,7 +72,7 @@ class LoginListener
         //}
         if($user instanceof User){
 
-            $this->logger->info('Connexion: '.$user->getEmail().":".$user->getPassword());
+            $this->logger->info('CONNEXION OK: '.$user->getEmail().":".$user->getPassword());
         }
 
     }
