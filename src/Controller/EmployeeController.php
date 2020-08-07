@@ -6,6 +6,7 @@ use App\Entity\Employee;
 use App\Form\EmployeeType;
 use App\Repository\EmployeeRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,8 +46,8 @@ class EmployeeController extends AbstractController
         //if(!$this->isGranted('ROLE_ADMIN')){
         //    return $this->redirectToRoute('front_app_home');
         //}
-        $empl = $this->getUser();
-        $this->denyAccessUnlessGranted('NEW', $empl);
+        $employeeObject = $this->getUser();
+        $this->denyAccessUnlessGranted('NEW', $employeeObject);
 
 
         $employee = new Employee();

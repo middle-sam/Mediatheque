@@ -25,6 +25,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
+                                <img src="{{ book.img}}" class="image-rounded" style="height: 75%; width: auto" alt="preview_image">
                                 <a class="text-info" href="{{ path('book_show', {'id': book.id}) }}">{{ book.titre }}</a>
                             </h5>
                             <p class="card-text">{{ book.format}} ({{ book.codeoeuvre}})</p>

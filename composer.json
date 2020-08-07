@@ -38,6 +38,8 @@
         "vich/uploader-bundle": "^1.15"
     },
     "require-dev": {
+        "symfony/browser-kit": "5.1.*",
+        "symfony/css-selector": "5.1.*",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.19",
         "symfony/profiler-pack": "*",

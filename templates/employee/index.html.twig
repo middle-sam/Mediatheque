@@ -44,7 +44,7 @@
         <div class="pagination">
             {{ knp_pagination_render(employees) }}
         </div>
-    {%  if is_granted('ROLE_ADMIN') %}
+    {%  if is_granted('NEW', employees) %}
         <a href="{{ path('employee_new') }}" class="alert alert-success">Create new</a>
     {%  endif %}
     </div>

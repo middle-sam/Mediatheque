@@ -18,7 +18,9 @@ class MemberType extends AbstractType
             ->add('password')
             ->add('firstName')
             ->add('lastName')
-            ->add('membershipDate', DateType::class, ['html5' => true])
+            ->add('membershipDate', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => true])
         ;
     }
 

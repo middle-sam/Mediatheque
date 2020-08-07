@@ -8,33 +8,39 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class  UserVoter extends Voter
 {
+    const EDIT = 'EDIT';
+    const NEW = 'NEW';
+    const DELETE = 'DELETE';
+
     protected function supports($attribute, $subject)
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['EDIT', 'DELETE', 'NEW'])
+        return in_array($attribute, [self::EDIT, self::DELETE, self::NEW])
             && $subject instanceof \App\Entity\User;
     }
 
-    protected function voteOnAttribute($attribute,$user , TokenInterface $token)
+    protected function voteOnAttribute($attribute, $user , TokenInterface $token)
     {
-        $user = $token->getUser();
+        $authenticatedUser = $token->getUser();
         // if the user is anonymous, do not grant access
-        if (!$user instanceof UserInterface) {
+        if (!$authenticatedUser instanceof UserInterface) {
             return false;
         }
 
+        echo $authenticatedUser->getId();
+        echo $user->getId();
 
-        // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'EDIT':
-                return  $user->getId() == 107;
+                return  $authenticatedUser->getId() == $user->getId();
                 break;
             case 'DELETE':
-                return  $user->getId() == 107;
+                return  $authenticatedUser->getId() == $user->getId();
                 break;
             case 'NEW' :
-                return  $user->getId() == 107;
+                return  $authenticatedUser->getId() == $user->getId();
+                break;
         }
 
         return false;
