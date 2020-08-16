@@ -12,6 +12,7 @@
                 <th>ParticipatesId</th>
                 <th>MeetupId</th>
                 <th>Meetup</th>
+                <th>Particioants</th>
                 <th>Réservations</th>
                 <th>actions</th>
             </tr>
@@ -22,6 +23,7 @@
                 <td>{{ participate.id }}</td>
                 <td>{{ participate.meetUpId.id }}</td>
                 <td>{{ participate.meetUpId.creatorId.firstName}} {{ participate.meetUpId.creatorId.lastName}}</td>
+                <td>{{ participate.userId.firstName }} {{  participate.userId.lastName}}</td>
                 <td>{{ participate.meetUpId | sumOfPlacesByMeetup }}<a href="#" id="extend" class="badge-pill badge-info ml-4">voir les participants</a></td>
                 <td>
                     <a href="{{ path('participates_show', {'id': participate.id}) }}">show</a>

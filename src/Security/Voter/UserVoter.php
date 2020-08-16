@@ -28,18 +28,16 @@ class  UserVoter extends Voter
             return false;
         }
 
-        echo $authenticatedUser->getId();
-        echo $user->getId();
 
         switch ($attribute) {
             case 'EDIT':
-                return  $authenticatedUser->getId() == $user->getId();
+                return  $authenticatedUser->getId() == 107;
                 break;
             case 'DELETE':
-                return  $authenticatedUser->getId() == $user->getId();
+                return  $authenticatedUser->getId() == 107;
                 break;
             case 'NEW' :
-                return  $authenticatedUser->getId() == $user->getId();
+                return  $authenticatedUser->getId() == 107;
                 break;
         }
 

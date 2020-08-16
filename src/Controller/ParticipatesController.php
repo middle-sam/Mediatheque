@@ -25,7 +25,7 @@ class ParticipatesController extends AbstractController
      */
     public function index(ParticipatesRepository $participatesRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $allParticipates = $paginator->paginate($participatesRepository->findAll(),
+        $allParticipates = $paginator->paginate($participatesRepository->findParticipatesByMeetup(),
             $request->query->getInt('page', 1),
             10
         );

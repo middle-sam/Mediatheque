@@ -30,7 +30,6 @@ class ParticipatesRepository extends ServiceEntityRepository
 
         return  $this->createQueryBuilder('spm')
             ->select('SUM(spm.places)')
-            //->from('participates', 'p')
             ->innerJoin('spm.meetUpId', 'm')
             ->where('m.id = :id')
             ->setParameter('id', $meetUpId)
@@ -38,6 +37,19 @@ class ParticipatesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findParticipatesByMeetup(){
+
+
+        return $this->createQueryBuilder('pm')
+            ->select('pm')
+            ->andWhere('pm.meetUpId IS NOT NULL')
+            ->groupBy('pm.meetUpId')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 
 
