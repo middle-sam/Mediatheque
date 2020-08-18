@@ -38,13 +38,13 @@ class ParticipatesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findParticipatesByMeetup(){
+    public function findParticipatesByMeetup($meetUpId){
 
 
         return $this->createQueryBuilder('pm')
             ->select('pm')
-            ->andWhere('pm.meetUpId IS NOT NULL')
-            ->groupBy('pm.meetUpId')
+            ->where('m.id = :id')
+            ->setParameter('id', $meetUpId)
             ->getQuery()
             ->getResult();
     }

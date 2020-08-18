@@ -25,7 +25,7 @@ class ParticipatesController extends AbstractController
      */
     public function index(ParticipatesRepository $participatesRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $allParticipates = $paginator->paginate($participatesRepository->findParticipatesByMeetup(),
+        $allParticipates = $paginator->paginate($participatesRepository->findAll(),
             $request->query->getInt('page', 1),
             10
         );
@@ -34,7 +34,7 @@ class ParticipatesController extends AbstractController
         return $this->render('participates/index.html.twig', [
             'participates' => $allParticipates,
             /**
-             * le résultat de sumofplaces a été injecyé dans la vue par le biais du filtre sumOfPlacesByMeetup
+             * le résultat de sumofplaces a été injecté dans la vue par le biais du filtre sumOfPlacesByMeetup
              * cela permet de contourner simplement le problème de l'injection de plusieurs variables dans une même boucle for du template
              */
             //'sumofplaces' => $participatesRepository->sumOfPlacesByMeetup(12)

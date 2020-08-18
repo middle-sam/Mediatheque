@@ -20,6 +20,10 @@ class MeetupManager extends AbstractExtension
         $this->participatesRepository = $participatesRepository;
     }
 
+    /**
+     * @return array|TwigFilter[]
+     * Extension twig, filtre d'affichage du nombre de places disponibles par meetUp
+     */
     public function getFilters()
     {
         return [
@@ -27,6 +31,10 @@ class MeetupManager extends AbstractExtension
         ];
     }
 
+    /**
+     * @param MeetUp $meetUp
+     * @return mixed
+     */
     public function formatSumOfPlaces(MeetUp $meetUp){
 
         return $this->participatesRepository->sumOfPlacesByMeetup($meetUp)[0][1];
