@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\MeetUp;
 use App\Entity\Participates;
 use App\Form\ParticipatesType;
 use App\Repository\ParticipatesRepository;
@@ -25,7 +26,7 @@ class ParticipatesController extends AbstractController
      */
     public function index(ParticipatesRepository $participatesRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $allParticipates = $paginator->paginate($participatesRepository->findAll(),
+        $allParticipates = $paginator->paginate($participatesRepository->findAllByMeetUp(),
             $request->query->getInt('page', 1),
             10
         );

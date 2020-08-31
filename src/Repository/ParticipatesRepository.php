@@ -49,6 +49,15 @@ class ParticipatesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllByMeetUp(){
+        return $this->createQueryBuilder('am')
+            //->where('am.id = :id')
+            //->setParameter('id', $meetUpId)
+            ->orderBy('am.id', 'ASC')
+            ->groupBy('am.meetUpId')
+            ->getQuery()
+            ->getResult();
+    }
 
 
 
